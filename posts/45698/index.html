@@ -1,0 +1,841 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OneDrive同域一键转存机器人源码及搭建教程 | ONLYONE</title><meta name="keywords" content="转存,onedrive"><meta name="author" content="二蛋"><meta name="copyright" content="二蛋"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="感谢 Chao 佬开源，请参阅原贴 OneDrive同域一键复制转存机器人已上线 查看机器人使用说明。由 Chao 佬授权，本贴将开放机器人源代码、描述较为详细的搭建教程，请从本贴附件下载源码、配置文件。我搭建的机器人使用自建 API 已通过表演域的审核： @CRODsaveBot 。 https:&#x2F;&#x2F;shields.io&#x2F;badge&#x2F;python-pip-yellow?logo&#x3D;python&amp;a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OneDrive同域一键转存机器人源码及搭建教程">
+<meta property="og:url" content="http://blog.hacg.cf/posts/45698/index.html">
+<meta property="og:site_name" content="ONLYONE">
+<meta property="og:description" content="感谢 Chao 佬开源，请参阅原贴 OneDrive同域一键复制转存机器人已上线 查看机器人使用说明。由 Chao 佬授权，本贴将开放机器人源代码、描述较为详细的搭建教程，请从本贴附件下载源码、配置文件。我搭建的机器人使用自建 API 已通过表演域的审核： @CRODsaveBot 。 https:&#x2F;&#x2F;shields.io&#x2F;badge&#x2F;python-pip-yellow?logo&#x3D;python&amp;a">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B46%E6%9C%88%E5%8F%B7/acg.gy_19.jpg">
+<meta property="article:published_time" content="2021-11-06T06:31:36.389Z">
+<meta property="article:modified_time" content="2021-11-22T02:37:43.597Z">
+<meta property="article:author" content="二蛋">
+<meta property="article:tag" content="转存">
+<meta property="article:tag" content="onedrive">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B46%E6%9C%88%E5%8F%B7/acg.gy_19.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://blog.hacg.cf/posts/45698/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-212316951-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-212316951-1');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 二蛋","link":"链接: ","source":"来源: ONLYONE","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'OneDrive同域一键转存机器人源码及搭建教程',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-11-22 10:37:43'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://f002.backblazeb2.com/file/zhuziz/1421b5f50fBWB4q-modified+(1).png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">40</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B46%E6%9C%88%E5%8F%B7/acg.gy_19.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">ONLYONE</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">OneDrive同域一键转存机器人源码及搭建教程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-06T06:31:36.389Z" title="发表于 2021-11-06 14:31:36">2021-11-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-11-22T02:37:43.597Z" title="更新于 2021-11-22 10:37:43">2021-11-22</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>29分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="OneDrive同域一键转存机器人源码及搭建教程"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>感谢 Chao 佬开源，请参阅原贴 OneDrive同域一键复制转存机器人已上线 查看机器人使用说明。由 Chao 佬授权，本贴将开放机器人源代码、描述较为详细的搭建教程，请从本贴附件下载源码、配置文件。我搭建的机器人使用自建 API 已通过表演域的审核： @CRODsaveBot 。</p>
+<p><a target="_blank" rel="noopener" href="https://shields.io/badge/python-pip-yellow?logo=python&style=flat">https://shields.io/badge/python-pip-yellow?logo=python&amp;style=flat</a></p>
+<p>搭建机器人需要会基本的Linux操作，我这里以 Ubuntu20 为例，其他系统请灵活变通。需要 python 环境，一般的 Linux 系统都自带。</p>
+<h1 id="1-上传源码"><a href="#1-上传源码" class="headerlink" title="1. 上传源码"></a><strong>1. 上传源码</strong></h1><p>新建bot文件夹并进入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir bot &amp;&amp; cd bot</span><br></pre></td></tr></table></figure>
+
+<p>上传源码 <code>main.py</code> 、配置文件 <code>config.json</code>至 <code>bot</code>目录，需要修改源码第10行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bot_api = &quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>私信 <a target="_blank" rel="noopener" href="https://bbs.1ove.club/gowild.htm?url=https_3A_2F_2Ft_2eme_2Fbotfather&u=657&fr=https_3A_2F_2Fbbs_2e1ove_2eclub_2Fthread_2d6282_2ehtm">BotFather</a> 创建一个新的 bot 获取 token 填入双引号之中。</p>
+<p>源码第18、19行为 Chao 佬原本 API 的 id 、 secret ，登陆 1ove 的账号无需再审核，若需使用自建 API 登陆 1ove 账号需向管理员提出申请。自建 API 你需要关注以下事项：</p>
+<ul>
+<li>重定向 URI （redirect URL） ： <code>http://localhost:53682</code></li>
+<li>AAD应用获得永久密码：<a target="_blank" rel="noopener" href="https://bbs.1ove.club/gowild.htm?url=https_3A_2F_2Fwww_2eqian_2eblue_2Farchives_2Faad_2dforever_2dsecret_2ehtml&u=657&fr=https_3A_2F_2Fbbs_2e1ove_2eclub_2Fthread_2d6282_2ehtm">https://www.qian.blue/archives/aad-forever-secret.html</a></li>
+</ul>
+<h1 id="2-安装-python-依赖库"><a href="#2-安装-python-依赖库" class="headerlink" title="2. 安装 python 依赖库"></a><strong>2. 安装 python 依赖库</strong></h1><p>提示 <code>command not found</code> 请切换 python 版本或安装 pip3 。</p>
+<p>python2：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install requests pyTelegramBotAPI</span><br></pre></td></tr></table></figure>
+
+<p>或 pyhon3 :</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">apt update</span><br><span class="line">apt install python3-pip</span><br><span class="line">pip3 install requests pyTelegramBotAPI</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-运行-bot"><a href="#3-运行-bot" class="headerlink" title="3. 运行 bot"></a><strong>3. 运行 bot</strong></h1><p>安装 screen 来让 bot 实现后台运行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt install screen</span><br></pre></td></tr></table></figure>
+
+<p>新建一个 screen 会话，名称自定，以 bot 为例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screen -S bot</span><br></pre></td></tr></table></figure>
+
+<p>启动bot：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python main.py</span><br></pre></td></tr></table></figure>
+
+<p>或python3：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 main.py</span><br></pre></td></tr></table></figure>
+
+<p>退出会话：<code>快捷键 Ctrl + A + D</code></p>
+<p>进入会话： <code>screen -r bot</code></p>
+<p>终止会话：<code>pkill screen</code></p>
+<p>最后给机器人发送命令 <code>/start</code> 得到回应即为搭建成功。</p>
+<ul>
+<li>代码main.py  import telebot<br>  import time<br>  from telebot import types<br>  import os<br>  import json<br>  import requests<br>  import re<br>  import base64  bot_api = “”<br>  bot = telebot.TeleBot(bot_api, parse_mode=None)  redirect_uri = “<a target="_blank" rel="noopener" href="http://localhost:53682/">http://localhost:53682</a>“<br>  scope = “offline_access user.read Files.Read Files.ReadWrite Files.Read.All Files.ReadWrite.All Sites.Read.All “ <br>  “Sites.ReadWrite.All “  client_id = “352ce6ec-85b0-4b0b-b1e2-fe6cadc23c64”<br>  client_secret = “HLTSIBS5.9PK13m8pPs_gSk6_hN~4.oaNl”<br>  login_url = f”<a target="_blank" rel="noopener" href="https://login.microsoftonline.com/common/oauth2/v2.0/authorize?%22">https://login.microsoftonline.com/common/oauth2/v2.0/authorize?”</a> <br>  f”client_id={client_id}” <br>  “&amp;response_type=code” <br>  f”&amp;redirect_uri={redirect_uri}” <br>  “&amp;response_mode=query” <br>  f”&amp;scope={scope}”  def small_copy(driveid, itemid, dir_drive, dir_item,refresh_token,call):<br>  try:<br>  access_token = gettoken(client_id, client_secret, refresh_token)<br>  temp_headers = {<br>  ‘Authorization’: access_token,<br>  ‘Content-Type’: ‘application/json’<br>  }<pre><code>  copy_url = f&quot;&lt;https://graph.microsoft.com/v1.0/drives/&#123;driveid&#125;/items/&#123;itemid&#125;/copy&gt;&quot;
+  copy_body = &#123;
+      &quot;parentReference&quot;: &#123;
+          &quot;driveId&quot;: dir_drive,
+          &quot;id&quot;: dir_item
+      &#125;
+  &#125;
+  try:
+      html = requests.post(url=copy_url, headers=temp_headers, json=copy_body,timeout=10)
+  except Exception as e:
+      print(f&quot;复制失败，跳过&#123;e&#125;&quot;)
+      bot.edit_message_text(text=f&quot;复制失败，跳过:`&#123;e&#125;`&quot;, chat_id=call.message.chat.id, parse_mode=&#39;Markdown&#39;,
+                            message_id=call.message.message_id)
+      return
+  # 大文件夹
+  if html.status_code == 413:
+      print(&quot;文件超出大小,启用分步复制&quot;)
+      bot.edit_message_text(text=f&quot;文件超出大小,启用分步复制&quot;, chat_id=call.message.chat.id,
+                            message_id=call.message.message_id)
+  
+      # 获取文件夹名称
+      temp_json = old_get_info(driveid, itemid,refresh_token)
+      print(temp_json)
+      new_folder_name = temp_json[&#39;name&#39;]
+      print(new_folder_name)
+  
+      # 新建文件夹
+      temp_json = creat_folder(drive_id=dir_drive, parent_item_id=dir_item, name=new_folder_name,refresh_token=refresh_token)
+      # 获取新建文件夹信息
+      temp_drive = temp_json[&#39;parentReference&#39;][&#39;driveId&#39;]
+      temp_item = temp_json[&#39;id&#39;]
+      # 获取分享内容文件夹内子文件列表信息
+      share_list = get_folder_list(driveid=driveid, itemid=itemid,refresh_token=refresh_token)
+      # print(share_list)
+      # 遍历分享文件夹内容
+      for a in share_list:
+          share_driveid = a[&#39;parentReference&#39;][&#39;driveId&#39;]
+          share_id = a[&#39;id&#39;]
+          small_copy(driveid=share_driveid, itemid=share_id, dir_drive=temp_drive, dir_item=temp_item,refresh_token=refresh_token,call=call)
+  
+      return
+  # print(f&quot;&#123;new_folder_name&#125; 全部复制完成&quot;)
+  
+  else:
+  
+      temp_json = old_get_info(driveid, itemid,refresh_token)
+      print(temp_json)
+      folder_name = temp_json[&#39;name&#39;]
+      print(f&quot;添加成功:&#123;folder_name&#125;&quot;)
+      bot.edit_message_text(text=f&quot;添加成功:`&#123;folder_name&#125;`&quot;, chat_id=call.message.chat.id, parse_mode=&#39;Markdown&#39;,
+                            message_id=call.message.message_id)
+  
+      return
+</code></pre>
+  except Exception as e:<pre><code>  try:
+      print(f&quot;复制失败，跳过&#123;e&#125;&quot;)
+      bot.edit_message_text(text=f&quot;复制失败，跳过:`&#123;e&#125;`&quot;, chat_id=call.message.chat.id, parse_mode=&#39;Markdown&#39;,
+                            message_id=call.message.message_id)
+  except:
+      return
+  return
+</code></pre>
+  def get_folder_list(driveid, itemid, refresh_token):  access_token = gettoken(client_id, client_secret, refresh_token)<br>  temp_headers = {<pre><code>  &#39;Authorization&#39;: access_token,
+  &#39;Content-Type&#39;: &#39;application/json&#39;
+</code></pre>
+  }  html = requests.get(f’<a target="_blank" rel="noopener" href="https://graph.microsoft.com/v1.0/drives/%7Bdriveid%7D/items/%7Bitemid%7D/children">https://graph.microsoft.com/v1.0/drives/{driveid}/items/{itemid}/children</a>‘,<pre><code>                  headers=temp_headers,timeout=10)
+</code></pre>
+  print(f”获取子文件夹{itemid}”)<h1 id="print-html-json"><a href="#print-html-json" class="headerlink" title="print(html.json())"></a>print(html.json())</h1>  copy_list = []<br>  while True:<pre><code>  for a in html.json()[&#39;value&#39;]:
+      copy_list.append(a)
+  if &quot;@odata.nextLink&quot; in html.json():
+      print(&quot;该资源子文件超过200&quot;)
+      new_url = html.json()[&#39;@odata.nextLink&#39;]
+      html = requests.get(url=new_url, headers=temp_headers,timeout=10)
+  else:
+      break
+</code></pre>
+<h1 id="print-copy-list"><a href="#print-copy-list" class="headerlink" title="print(copy_list)"></a>print(copy_list)</h1>  print(f”子文件数为：{len(copy_list)}”)<br>  return copy_list  def old_get_info(drive_id, item_id,refresh_token):<br>  access_token = gettoken(client_id, client_secret, refresh_token)<br>  temp_headers = {<br>  ‘Authorization’: access_token,<br>  ‘Content-Type’: ‘application/json’<br>  }<br>  info_url = f”<a target="_blank" rel="noopener" href="https://graph.microsoft.com/v1.0/drives/%7Bdrive_id%7D/items/%7Bitem_id%7D">https://graph.microsoft.com/v1.0/drives/{drive_id}/items/{item_id}</a>“  html = requests.get(url=info_url, headers=temp_headers)<br>  return html.json()  def creat_folder(drive_id, parent_item_id, name, refresh_token):<br>  access_token = gettoken(client_id, client_secret, refresh_token)<br>  temp_headers = {<br>  ‘Authorization’: access_token,<br>  ‘Content-Type’: ‘application/json’<br>  }<br>  creat_url = f”<a target="_blank" rel="noopener" href="https://graph.microsoft.com/v1.0/drives/%7Bdrive_id%7D/items/%7Bparent_item_id%7D/children">https://graph.microsoft.com/v1.0/drives/{drive_id}/items/{parent_item_id}/children</a>“<br>  creat_body = {<br>  “name”: name,<br>  “folder”: {}<br>  }<br>  html = requests.post(url=creat_url, headers=temp_headers, json=creat_body,timeout=10)<h1 id="print-html-json-1"><a href="#print-html-json-1" class="headerlink" title="print(html.json())"></a>print(html.json())</h1>  return html.json()  def start_copy(driveid, itemid,root_driveid,root_itemid,refresh_token,call):  access_token = gettoken(client_id, client_secret, refresh_token)<br>  temp_headers = {<pre><code>  &#39;Authorization&#39;: access_token,
+  &#39;Content-Type&#39;: &#39;application/json&#39;
+</code></pre>
+  }<br>  copy_url = f”<a target="_blank" rel="noopener" href="https://graph.microsoft.com/v1.0/drives/%7Bdriveid%7D/items/%7Bitemid%7D/copy">https://graph.microsoft.com/v1.0/drives/{driveid}/items/{itemid}/copy</a>“<br>  copy_body = {<pre><code>  &quot;parentReference&quot;: &#123;
+      &quot;driveId&quot;: root_driveid,
+      &quot;id&quot;: root_itemid
+  &#125;
+</code></pre>
+  }<br>  print(“调用复制”)<br>  bot.edit_message_text(text=”调用复制”, chat_id=call.message.chat.id,<pre><code>                    message_id=call.message.message_id)
+</code></pre>
+  html = requests.post(url=copy_url, headers=temp_headers, json=copy_body,timeout=10)<h1 id="大文件夹"><a href="#大文件夹" class="headerlink" title="大文件夹"></a>大文件夹</h1>  if html.status_code == 413:<pre><code>  print(&quot;文件超出大小,启用分步复制&quot;)
+  bot.edit_message_text(text=&quot;文件超出大小,启用分步复制&quot;, chat_id=call.message.chat.id,
+                        message_id=call.message.message_id)
+
+  # 获取文件夹名称
+  temp_json = old_get_info(driveid, itemid,refresh_token)
+  print(temp_json)
+  new_folder_name = temp_json[&#39;name&#39;]
+  print(new_folder_name)
+  
+  # 新建文件夹
+  temp_json = creat_folder(drive_id=root_driveid, parent_item_id=root_itemid, name=new_folder_name,
+                           refresh_token=refresh_token)
+  # 获取新建文件夹信息
+  temp_drive = temp_json[&#39;parentReference&#39;][&#39;driveId&#39;]
+  temp_item = temp_json[&#39;id&#39;]
+  
+  # 获取分享内容文件夹内子文件列表信息
+  share_list = get_folder_list(driveid=driveid, itemid=itemid,refresh_token=refresh_token)
+  
+  # 遍历分享文件夹内容
+  for a in share_list:
+      share_driveid = a[&#39;parentReference&#39;][&#39;driveId&#39;]
+      share_id = a[&#39;id&#39;]
+      small_copy(driveid=share_driveid, itemid=share_id, dir_drive=temp_drive, dir_item=temp_item,refresh_token=refresh_token,call=call)
+  
+  print(&quot;添加云端复制完成&quot;)
+  bot.edit_message_text(text=&quot;添加云端复制完成&quot;, chat_id=call.message.chat.id,
+                        message_id=call.message.message_id)
+  return
+</code></pre>
+<h1 id="print-f”-new-folder-name-全部复制完成”"><a href="#print-f”-new-folder-name-全部复制完成”" class="headerlink" title="print(f”{new_folder_name} 全部复制完成”)"></a>print(f”{new_folder_name} 全部复制完成”)</h1>  else:<pre><code>  temp_json =old_get_info(driveid, itemid,refresh_token)
+  print(temp_json)
+  folder_name = temp_json[&#39;name&#39;]
+  print(f&quot;添加任务成功:&#123;folder_name&#125;&quot;)
+  bot.edit_message_text(text=f&quot;添加任务成功:`&#123;folder_name&#125;`&quot;, chat_id=call.message.chat.id,parse_mode=&#39;Markdown&#39;,
+                        message_id=call.message.message_id)
+  time.sleep(1)
+  bot.edit_message_text(text=f&quot;所有任务完成&quot;, chat_id=call.message.chat.id, parse_mode=&#39;Markdown&#39;,
+                        message_id=call.message.message_id)
+  
+  return
+</code></pre>
+  def gettoken(id, secret, refresh_token):<br>  headers = {‘Content-Type’: ‘application/x-www-form-urlencoded’<br>  }<br>  data = {‘grant_type’: ‘refresh_token’,<br>  ‘refresh_token’: refresh_token,<br>  ‘client_id’: id,<br>  ‘client_secret’: secret,<br>  ‘redirect_uri’: ‘<a target="_blank" rel="noopener" href="http://localhost:53682/">http://localhost:53682/</a>‘<br>  }<br>  html = requests.post(‘<a target="_blank" rel="noopener" href="https://login.microsoftonline.com/common/oauth2/v2.0/token">https://login.microsoftonline.com/common/oauth2/v2.0/token</a>‘,<br>  data=data, headers=headers,timeout=10)<br>  jsontxt = json.loads(html.text)<br>  refresh_token = jsontxt[‘refresh_token’]<br>  access_token = jsontxt[‘access_token’]<br>  return access_token  def get_folder_par(drive_id, item_id, refresh_token):<br>  access_token = gettoken(client_id, client_secret, refresh_token)<br>  temp_headers = {<br>  ‘Authorization’: access_token,<br>  ‘Content-Type’: ‘application/json’<br>  }<br>  info_url = f”<a target="_blank" rel="noopener" href="https://graph.microsoft.com/v1.0/drives/%7Bdrive_id%7D/items/%7Bitem_id%7D">https://graph.microsoft.com/v1.0/drives/{drive_id}/items/{item_id}</a>“  html = requests.get(url=info_url, headers=temp_headers,timeout=10)<br>  return html.json()  def my_file(refresh_token):<br>  access_token = gettoken(client_id, client_secret, refresh_token)<br>  temp_headers = {<br>  ‘Authorization’: access_token,<br>  ‘Content-Type’: ‘application/json’<br>  }  html = requests.get(r’<a target="_blank" rel="noopener" href="https://graph.microsoft.com/v1.0/me/drive/root/children">https://graph.microsoft.com/v1.0/me/drive/root/children</a>‘, headers=temp_headers,timeout=10)  return html.json()  def get_config(user_id,od_name):<br>  with open(“config.json”, “r”, encoding=’utf-8’) as jsonFile:<br>  data = json.load(jsonFile)<br>  jsonFile.close()<br>  Telegram_list = data[‘Telegram list’]<br>  for a in Telegram_list:<br>  if str(a[‘id’]) == str(user_id):<pre><code>      account_list = list(a[&quot;account list&quot;])
+</code></pre>
+  for a in account_list:<pre><code>  if str(a[&#39;name&#39;]) == str(od_name):
+
+      od_config = a
+</code></pre>
+  return od_config  def get_info(drive_id, item_id, refresh_token):<br>  access_token = gettoken(client_id, client_secret, refresh_token)<br>  temp_headers = {<br>  ‘Authorization’: access_token,<br>  ‘Content-Type’: ‘application/json’<br>  }<br>  info_url = f”<a target="_blank" rel="noopener" href="https://graph.microsoft.com/v1.0/drives/%7Bdrive_id%7D/items/%7Bitem_id%7D/children">https://graph.microsoft.com/v1.0/drives/{drive_id}/items/{item_id}/children</a>“  html = requests.get(url=info_url, headers=temp_headers,timeout=10)<br>  return html.json()  def create_onedrive_directdownload(onedrive_link):<br>  data_bytes64 = base64.b64encode(bytes(onedrive_link, ‘utf-8’))<br>  data_bytes64_String = data_bytes64.decode(‘utf-8’).replace(‘/‘, ‘_’).replace(‘+’, ‘-‘).rstrip(“=”)<br>  data_bytes64_String = “u!” + data_bytes64_String<h1 id="print-data-bytes64-String"><a href="#print-data-bytes64-String" class="headerlink" title="print(data_bytes64_String)"></a>print(data_bytes64_String)</h1>  return data_bytes64_String  def visit_url(link,config,call):<br>  refresh_token=config[‘refresh_token’]<br>  print(refresh_token)<br>  access_token = gettoken(client_id, client_secret, refresh_token)<br>  temp_headers = {‘Authorization’: access_token,<br>  ‘Content-Type’: ‘application/json’,<br>  ‘Prefer’: “redeemSharingLink”}  shareIdOrEncodedSharingUrl = create_onedrive_directdownload(onedrive_link=link)<br>  print(shareIdOrEncodedSharingUrl)<br>  html = requests.get(<pre><code>  rf&#39;&lt;https://graph.microsoft.com/v1.0/shares/&#123;shareIdOrEncodedSharingUrl&#125;/driveItem&gt;&#39;,
+  headers=temp_headers,timeout=10)
+</code></pre>
+  print(html.json())<br>  if “error” in str(html.json()):<pre><code>  print(&quot;获取分享链接失败&quot;)
+  bot.edit_message_text(text=&quot;获取分享链接失败&quot;, chat_id=call.message.chat.id,
+                        message_id=call.message.message_id)
+  return
+</code></pre>
+  else:<pre><code>  print(&quot;获取分享信息成功&quot;)
+  bot.edit_message_text(text=&quot;获取分享信息成功&quot;, chat_id=call.message.chat.id,
+                        message_id=call.message.message_id)
+
+  driveid = html.json()[&#39;parentReference&#39;][&#39;driveId&#39;]
+  itemid = html.json()[&#39;id&#39;]
+  
+  try:
+      temp=config[&#39;save_folder&#39;]
+  except:
+      bot.edit_message_text(text=&quot;未设置保存文件夹&quot;, chat_id=call.message.chat.id,
+                            message_id=call.message.message_id)
+      return
+  
+  start_copy(driveid=driveid, itemid=itemid,
+             root_driveid=config[&#39;drive_id&#39;],root_itemid=config[&#39;save_folder&#39;],
+             refresh_token=refresh_token,call=call)
+</code></pre>
+  @bot.callback_query_handler(func=lambda call: “copy” in str(call.data))<br>  def od_copy(call):<br>  print(call.data)<br>  od_name = str(call.data).split(“ “)[1]<br>  print(od_name)<br>  user_id = call.from_user.id<br>  info_text = call.message.text  url = re.findall(‘([a-zA-z]+://[^\s]*)’, str(info_text))[0]<br>  print(url)<br>  od_config = get_config(user_id, od_name)<br>  visit_url(link=url,config=od_config,call=call)  @bot.callback_query_handler(func=lambda call: “save” == str(call.data))<br>  def choose_folder(call):<br>  try:<br>  user_id = call.from_user.id<pre><code>  temp_list = str(call.message.text).split(&quot;\\n&quot;)
+  od_name = temp_list[0]
+  
+  temp_drive_id = temp_list[1]
+  temp_item_id = temp_list[2]
+  
+  with open(&quot;config.json&quot;, &quot;r&quot;, encoding=&#39;utf-8&#39;) as jsonFile:
+      data = json.load(jsonFile)
+      jsonFile.close()
+  
+  for a in data[&#39;Telegram list&#39;]:
+      if str(a[&#39;id&#39;]) == str(user_id):
+          account_list = list(a[&quot;account list&quot;])
+  
+  for a in account_list:
+      if str(a[&#39;name&#39;]) == str(od_name):
+          od_config = a
+  
+  od_config[&#39;drive_id&#39;] = temp_drive_id
+  od_config[&#39;save_folder&#39;] = temp_item_id
+  
+  for a in range(len(account_list)):
+      if str(account_list[a][&#39;name&#39;]) == str(od_name):
+          account_list[a] = od_config
+  
+  for a in range(len(data[&#39;Telegram list&#39;])):
+      if str(data[&#39;Telegram list&#39;][a][&#39;id&#39;]) == str(user_id):
+          data[&#39;Telegram list&#39;][a][&#39;account list&#39;] = account_list
+  
+  with open(&quot;config.json&quot;, &quot;w&quot;) as jsonFile:
+      json.dump(data, jsonFile, indent=4, ensure_ascii=False)
+      jsonFile.close()
+  print(&quot;写入完成&quot;)
+  bot.edit_message_text(&quot;设定保存文件夹成功&quot;, call.message.chat.id, call.message.message_id)
+  time.sleep(1)
+  change_old_account(user_id=user_id,call=call.message)
+</code></pre>
+  except Exception as e:<pre><code>  print(f&quot;choose_folder &#123;e&#125;&quot;)
+</code></pre>
+  @bot.callback_query_handler(func=lambda call: “back” == str(call.data))<br>  def back_page(call):<br>  user_id = call.from_user.id  temp_list = str(call.message.text).split(“\n”)<br>  od_name = temp_list[0]  temp_drive_id = temp_list[1]<br>  temp_item_id = temp_list[2]<br>  od_config = get_config(user_id, od_name)<br>  info_list = get_folder_par(drive_id=temp_drive_id,<pre><code>                   item_id=temp_item_id,
+                   refresh_token=od_config[&#39;refresh_token&#39;])
+</code></pre>
+  print(info_list)<br>  drive_id = info_list[‘parentReference’][‘driveId’]<br>  item_id = info_list[‘parentReference’][‘id’]  folder_info = get_folder_par(drive_id=drive_id,<pre><code>                       item_id=item_id,
+                       refresh_token=od_config[&#39;refresh_token&#39;])
+</code></pre>
+  new_file_list = get_info(drive_id=drive_id,<pre><code>                       item_id=item_id,
+                       refresh_token=od_config[&#39;refresh_token&#39;])
+</code></pre>
+  text = f”{od_name}\n{drive_id}\n{item_id}\n”<br>  file_list = []<br>  num = 0<br>  markup = types.InlineKeyboardMarkup()<br>  button_list = []<br>  for a in new_file_list[‘value’]:<pre><code>  if num == 10:
+      break
+  if &#39;folder&#39; in a:
+      file_list.append(a)
+      # print(num+&quot; - &quot;+ a[&#39;name&#39;]+&#39;   ItemID:&#39;+a[&#39;id&#39;]+&#39;   driveId:&#39;+a[&#39;parentReference&#39;][&#39;driveId&#39;])
+      # print(f&quot;&#123;num&#125; - &#123;a[&#39;name&#39;]&#125;&quot;)
+      button_list.append(types.InlineKeyboardButton(num, callback_data=f&quot;folder &#123;num&#125;&quot;))
+      if (num + 1) % 4 == 5:
+          markup.add(*button_list)
+          button_list = []
+
+      text = text + f&quot;&#123;num&#125; - &#123;a[&#39;name&#39;]&#125;\\n&quot;
+      num = num + 1
+</code></pre>
+  markup.add(*button_list)  if folder_info[‘name’] != “root”:<pre><code>  markup.add(types.InlineKeyboardButton(&quot;上级文件夹&quot;, callback_data=f&quot;back&quot;),
+             types.InlineKeyboardButton(&quot;设置为保存文件夹&quot;, callback_data=f&quot;save&quot;))
+</code></pre>
+  bot.edit_message_text(text, call.message.chat.id, call.message.message_id,<pre><code>                    reply_markup=markup)
+</code></pre>
+  @bot.callback_query_handler(func=lambda call: “folder” in str(call.data))<br>  def show_folder(call):<br>  user_id = call.from_user.id  temp_list = str(call.message.text).split(“\n”)<br>  od_name = temp_list[0]<br>  par = temp_list[1]  key = int(str(call.data).split(“ “)[1])  od_config=get_config(user_id,od_name)<br>  if par == “root”:<pre><code>  info_list = my_file(refresh_token=od_config[&#39;refresh_token&#39;])[&#39;value&#39;]
+</code></pre>
+  else:<pre><code>  temp_drive_id = temp_list[1]
+  temp_item_id = temp_list[2]
+  info_list = get_info(drive_id=temp_drive_id,
+                           item_id=temp_item_id,
+                           refresh_token=od_config[&#39;refresh_token&#39;])[&#39;value&#39;]
+</code></pre>
+  print(key)<br>  print(info_list)<br>  print(info_list[key][‘parentReference’][‘driveId’])<br>  print(info_list[key][‘id’])<br>  drive_id = info_list[key][‘parentReference’][‘driveId’]<br>  item_id = info_list[key][‘id’]<br>  new_file_list = get_info(drive_id=drive_id,<pre><code>                       item_id = item_id,
+                       refresh_token=od_config[&#39;refresh_token&#39;])
+</code></pre>
+  print(new_file_list)  text = f”{od_name}\n{drive_id}\n{item_id}\n”<br>  file_list=[]<br>  num=0<br>  markup = types.InlineKeyboardMarkup()<br>  button_list = []<br>  for a in new_file_list[‘value’]:<pre><code>  if num == 10:
+
+      break
+  if &#39;folder&#39; in a:
+      file_list.append(a)
+      # print(num+&quot; - &quot;+ a[&#39;name&#39;]+&#39;   ItemID:&#39;+a[&#39;id&#39;]+&#39;   driveId:&#39;+a[&#39;parentReference&#39;][&#39;driveId&#39;])
+      # print(f&quot;&#123;num&#125; - &#123;a[&#39;name&#39;]&#125;&quot;)
+      button_list.append(types.InlineKeyboardButton(num, callback_data=f&quot;folder &#123;num&#125;&quot;))
+      if (num + 1) % 4 == 5:
+          markup.add(*button_list)
+          button_list = []
+  
+      text = text + f&quot;&#123;num&#125; - &#123;a[&#39;name&#39;]&#125;\\n&quot;
+      num = num + 1
+</code></pre>
+  markup.add(*button_list)<br>  print(text)<br>  markup.add(types.InlineKeyboardButton(“上级文件夹”, callback_data=f”back”),<pre><code>         types.InlineKeyboardButton(&quot;设置为保存文件夹&quot;, callback_data=f&quot;save&quot;))
+</code></pre>
+  markup.add(types.InlineKeyboardButton(“账号列表”, callback_data=”account list”))<br>  bot.edit_message_text(text, call.message.chat.id, call.message.message_id,<pre><code>                    reply_markup=markup)
+</code></pre>
+  @bot.callback_query_handler(func=lambda call: “onedrive” in str(call.data))<br>  def show_od(call):<br>  print(call.data)<br>  od_name = str(call.data).split(“ “)[1]<br>  print(od_name)<br>  user_id = call.from_user.id<br>  with open(“config.json”, “r”, encoding=’utf-8’) as jsonFile:<br>  data = json.load(jsonFile)<br>  jsonFile.close()<br>  Telegram_list = data[‘Telegram list’]<br>  for a in Telegram_list:<br>  if str(a[‘id’]) == str(user_id):<br>  print(“找到用户信息”)<br>  account_list = list(a[“account list”])  for a in account_list:<pre><code>  if str(a[&#39;name&#39;]) == str(od_name):
+
+      od_config = a
+</code></pre>
+  info_list = my_file(refresh_token=od_config[‘refresh_token’])  file_list = []<br>  num = 0  text = f”{od_name}\nroot\n选择对应序号进入文件夹，根目录无法设置为保存文件夹\n”  markup = types.InlineKeyboardMarkup()<br>  button_list = []<br>  print(info_list)<br>  for a in info_list[‘value’]:<pre><code>  if num == 10:
+
+      break
+  if &#39;folder&#39; in a:
+      file_list.append(a)
+      # print(num+&quot; - &quot;+ a[&#39;name&#39;]+&#39;   ItemID:&#39;+a[&#39;id&#39;]+&#39;   driveId:&#39;+a[&#39;parentReference&#39;][&#39;driveId&#39;])
+      # print(f&quot;&#123;num&#125; - &#123;a[&#39;name&#39;]&#125;&quot;)
+      button_list.append(types.InlineKeyboardButton(num, callback_data=f&quot;folder &#123;num&#125;&quot;))
+      if (num + 1) % 4 == 5:
+          markup.add(*button_list)
+          button_list = []
+  
+      text = text + f&quot;&#123;num&#125; - &#123;a[&#39;name&#39;]&#125;\\n&quot;
+      num = num + 1
+</code></pre>
+  markup.add(*button_list)<br>  print(text)<br>  markup.add(types.InlineKeyboardButton(“账号列表”, callback_data=”account list”))<br>  bot.edit_message_text(text, call.message.chat.id, call.message.message_id,<pre><code>                    reply_markup=markup)
+</code></pre>
+  def check_id(info_list, telegram_id):<br>  num = 0<br>  print(info_list, telegram_id)<br>  for a in info_list:<br>  if str(a[‘id’]) == str(telegram_id):<br>  num = 1<br>  if num == 0:<br>  return False<br>  else:<br>  return True  def add_onedrive_token(message, name, info):<br>  print(message)<br>  bot.delete_message(chat_id=<a target="_blank" rel="noopener" href="http://message.chat.id/">message.chat.id</a>, message_id=message.message_id)<br>  user_id = message.from_user.id<br>  result = str(message.text)<br>  if result == “/cancel”:<br>  change_old_account(call=info,user_id=user_id)<br>  return<br>  else:<pre><code>  code = re.findall(&quot;.*?code=(.*?)&amp;&quot;, result, re.S)[0]
+  
+  data = &#123;
+      &quot;client_id&quot;: client_id,
+      &quot;grant_type&quot;: &quot;authorization_code&quot;,
+      &quot;redirect_uri&quot;: redirect_uri,
+      &quot;scope&quot;: scope,
+      &quot;client_secret&quot;: client_secret,
+      &quot;code&quot;: code
+  &#125;
+  print(&quot;获取参数成功，开始登录&quot;)
+  test_url = &quot;&lt;https://login.microsoftonline.com/common/oauth2/v2.0/token&gt;&quot;
+  result = requests.post(url=test_url, data=data, timeout=10)
+  
+  if result.status_code == 200:
+      result_json = result.json()
+      print(&quot;开始写入配置&quot;)
+      with open(&quot;config.json&quot;, &quot;r&quot;, encoding=&#39;utf-8&#39;) as jsonFile:
+          data = json.load(jsonFile)
+          jsonFile.close()
+  
+      for a in data[&#39;Telegram list&#39;]:
+          if str(a[&#39;id&#39;]) == str(user_id):
+              account_list = list(a[&quot;account list&quot;])
+  
+      config_data = &#123;&#125;
+      config_data[&#39;name&#39;] = name
+      config_data[&#39;access_token&#39;] = result_json[&#39;access_token&#39;]
+      config_data[&#39;refresh_token&#39;] = result_json[&#39;refresh_token&#39;]
+  
+      account_list.append(config_data)
+  
+      for a in range(len(data[&#39;Telegram list&#39;])):
+          if str(data[&#39;Telegram list&#39;][a][&#39;id&#39;]) == str(user_id):
+              data[&#39;Telegram list&#39;][a][&#39;account list&#39;] = account_list
+  
+      with open(&quot;config.json&quot;, &quot;w&quot;) as jsonFile:
+          json.dump(data, jsonFile, indent=4, ensure_ascii=False)
+          jsonFile.close()
+      print(&quot;登录成功&quot;)
+      bot.edit_message_text(text=&quot;登录成功&quot;, chat_id=info.chat.id, message_id=int(info.message_id),
+                            parse_mode=&#39;Markdown&#39;)
+  
+      time.sleep(1)
+  
+      change_old_account(user_id=user_id,call=info)
+      return
+  else:
+      bot.edit_message_text(text=f&quot;登录失败\\n&#123;result.text&#125;&quot;, chat_id=info.chat.id, message_id=int(info.message_id),
+                            parse_mode=&#39;Markdown&#39;)
+      return
+</code></pre>
+  def change_old_account(user_id,call):  with open(“config.json”, “r”, encoding=’utf-8’) as jsonFile:<pre><code>  data = json.load(jsonFile)
+  jsonFile.close()
+</code></pre>
+  Telegram_list = data[‘Telegram list’]<br>  print(user_id)<br>  if check_id(Telegram_list, user_id) == True:<pre><code>  print(&quot;用户存在&quot;)
+  for a in Telegram_list:
+      if str(a[&#39;id&#39;]) == str(user_id):
+          print(&quot;找到用户信息&quot;)
+          account_list = list(a[&quot;account list&quot;])
+
+  if len(account_list) == 0:
+      text = f&quot;你的ID：`&#123;user_id&#125;`\\n&quot; \\
+             f&quot;已有账号数:`0`&quot;
+  
+      markup = types.InlineKeyboardMarkup()
+      markup.add(types.InlineKeyboardButton(&quot;添加账号&quot;, callback_data=&quot;add_account&quot;))
+  
+      bot.edit_message_text(text, call.chat.id, call.message_id, parse_mode=&#39;Markdown&#39;,
+                            reply_markup=markup)
+  else:
+      text = f&quot;你的ID：`&#123;user_id&#125;`\\n&quot; \\
+             f&quot;已有账号数:`&#123;len(account_list)&#125;`&quot;
+  
+      markup = types.InlineKeyboardMarkup()
+      for a in account_list:
+          markup.add(types.InlineKeyboardButton(a[&#39;name&#39;], callback_data=f&quot;onedrive &#123;a[&#39;name&#39;]&#125;&quot;))
+  
+      markup.add(types.InlineKeyboardButton(&quot;添加账号&quot;, callback_data=&quot;add_account&quot;))
+      markup.add(types.InlineKeyboardButton(&quot;删除账号&quot;, callback_data=&quot;del_account&quot;))
+  
+      bot.edit_message_text(text, call.chat.id, call.message_id, parse_mode=&#39;Markdown&#39;,
+                            reply_markup=markup)
+</code></pre>
+  def add_onedrive_name(message,call):<br>  keywords = str(message.text)<br>  print(message)<br>  user_id = message.from_user.id<br>  bot.delete_message(chat_id=<a target="_blank" rel="noopener" href="http://message.chat.id/">message.chat.id</a>, message_id=message.message_id)  if keywords == “/cancel”:<pre><code>  print(&quot;取消输入昵称&quot;)
+  change_old_account(user_id=user_id,call=call)
+  return
+</code></pre>
+  else:<pre><code>  name = keywords
+
+  print(f&quot;备注名:&#123;keywords&#125;-&#123;user_id&#125;&quot;)
+  
+  text = f&quot;你的ID:&#123;user_id&#125;\\n&quot; \\
+         f&quot;账号备注:&#123;name&#125;\\n&quot; \\
+         f&quot;请复制链接到浏览器打开登录:[链接地址](&#123;login_url&#125;)\\n&quot; \\
+         f&quot;登录说明:登录成功后会显示**无法访问此网站**，此时复制网址发送给本Bot即可\\n&quot; \\
+         f&quot;或者输入 /cancel 取消添加&quot;
+  
+  msg = bot.edit_message_text(text=text, chat_id=call.chat.id, message_id=int(call.message_id),
+                              parse_mode=&#39;Markdown&#39;)
+  
+  # info = bot.send_message(text=text, chat_id=call.from_user.id, parse_mode=&#39;Markdown&#39;)
+  
+  bot.register_next_step_handler(msg, add_onedrive_token, name, msg)
+  
+  return
+</code></pre>
+  @bot.callback_query_handler(func=lambda call: “delod” in str(call.data))<br>  def del_od(call):<br>  try:<br>  print(“删除用户”)<br>  user_id = call.from_user.id<br>  print(call.data)<br>  temp_list = str(call.data).split(“ “)<br>  od_name = temp_list[1]<pre><code>  with open(&quot;config.json&quot;, &quot;r&quot;, encoding=&#39;utf-8&#39;) as jsonFile:
+      data = json.load(jsonFile)
+      jsonFile.close()
+  
+  for a in range(len(data[&#39;Telegram list&#39;])):
+      print(a)
+      if str(data[&#39;Telegram list&#39;][a][&#39;id&#39;]) == str(user_id):
+          account_list = list(data[&#39;Telegram list&#39;][a][&quot;account list&quot;])
+  
+  print(account_list)
+  
+  for a in range(len(account_list)):
+      print(a)
+      print(account_list[a][&#39;name&#39;],str(od_name))
+      if str(account_list[a][&#39;name&#39;]) == str(od_name):
+          print(account_list[a])
+          del account_list[a]
+          break
+  
+  for a in range(len(data[&#39;Telegram list&#39;])):
+      if str(data[&#39;Telegram list&#39;][a][&#39;id&#39;]) == str(user_id):
+          data[&#39;Telegram list&#39;][a][&#39;account list&#39;] = account_list
+  
+  with open(&quot;config.json&quot;, &quot;w&quot;) as jsonFile:
+      json.dump(data, jsonFile, indent=4, ensure_ascii=False)
+      jsonFile.close()
+  
+  print(&quot;删除成功&quot;)
+  
+  change_old_account(call=call.message, user_id=user_id)
+</code></pre>
+  except Exception as e:<pre><code>  print(f&quot;del_od:&#123;e&#125;&quot;)
+</code></pre>
+  @bot.callback_query_handler(func=lambda call: “del_account” == str(call.data))<br>  def del_account_list(call):<br>  print(call.message)<br>  user_id = call.from_user.id<br>  print(user_id)  try:<pre><code>  with open(&quot;config.json&quot;, &quot;r&quot;, encoding=&#39;utf-8&#39;) as jsonFile:
+      data = json.load(jsonFile)
+      jsonFile.close()
+  Telegram_list = data[&#39;Telegram list&#39;]
+
+  for a in Telegram_list:
+      if str(a[&#39;id&#39;]) == str(user_id):
+          print(&quot;找到用户信息&quot;)
+          account_list = list(a[&quot;account list&quot;])
+  
+  if len(account_list) == 0:
+      text = f&quot;你的ID：`&#123;user_id&#125;`\\n&quot; \\
+             f&quot;已有账号数:`0`\\n&quot; \\
+             f&quot;请选择删除的账号&quot;
+  
+      markup = types.InlineKeyboardMarkup()
+      markup.add(types.InlineKeyboardButton(&quot;账号列表&quot;, callback_data=&quot;account list&quot;))
+  
+      bot.edit_message_text(text, call.message.chat.id, call.message.message_id, parse_mode=&#39;Markdown&#39;,
+                            reply_markup=markup)
+  else:
+      text = f&quot;你的ID：`&#123;user_id&#125;`\\n&quot; \\
+             f&quot;已有账号数:`&#123;len(account_list)&#125;`\\n&quot; \\
+             f&quot;请选择删除的账号&quot;
+  
+      markup = types.InlineKeyboardMarkup()
+      for a in account_list:
+          markup.add(types.InlineKeyboardButton(a[&#39;name&#39;], callback_data=f&quot;delod &#123;a[&#39;name&#39;]&#125;&quot;))
+  
+      markup.add(types.InlineKeyboardButton(&quot;账号列表&quot;, callback_data=&quot;account list&quot;))
+      bot.edit_message_text(text, call.message.chat.id, call.message.message_id, parse_mode=&#39;Markdown&#39;,
+                            reply_markup=markup)
+</code></pre>
+  except Exception as e:<pre><code>  input(f&quot;del_account:&#123;e&#125;&quot;)
+</code></pre>
+  @bot.callback_query_handler(func=lambda call: “add_account” == str(call.data))<br>  def add_onedrive(call):<br>  try:<br>  text = “请输入该Onedrive账号的备注\n” <br>  “或者输入 /cancel 取消添加\n” <br>  “名称尽量简洁”<br>  info = bot.edit_message_text(text, <a target="_blank" rel="noopener" href="http://call.message.chat.id/">call.message.chat.id</a>, call.message.message_id, parse_mode=’Markdown’)<pre><code>  bot.register_next_step_handler(info, add_onedrive_name,info)
+  
+  return
+</code></pre>
+  except Exception as e:<pre><code>  print(f&#39;add_onedrive error &#123;e&#125;&#39;)
+</code></pre>
+  @bot.callback_query_handler(func=lambda call: “account list” == str(call.data))<br>  def account_list(call):<br>  try:<br>  print(call.message)<br>  user_id = call.from_user.id<br>  print(user_id)<pre><code>  if os.path.isfile(&quot;config.json&quot;) == True:
+  
+      try:
+          with open(&quot;config.json&quot;, &quot;r&quot;, encoding=&#39;utf-8&#39;) as jsonFile:
+              data = json.load(jsonFile)
+              jsonFile.close()
+          Telegram_list = data[&#39;Telegram list&#39;]
+          if check_id(Telegram_list, user_id) == True:
+              print(&quot;用户存在&quot;)
+              for a in Telegram_list:
+                  if str(a[&#39;id&#39;]) == str(user_id):
+                      print(&quot;找到用户信息&quot;)
+                      account_list = list(a[&quot;account list&quot;])
+  
+              if len(account_list) == 0:
+                  text = f&quot;你的ID：`&#123;user_id&#125;`\\n&quot; \\
+                         f&quot;已有账号数:`0`&quot;
+  
+                  markup = types.InlineKeyboardMarkup()
+                  markup.add(types.InlineKeyboardButton(&quot;添加账号&quot;, callback_data=&quot;add_account&quot;))
+  
+                  bot.edit_message_text(text, call.message.chat.id, call.message.message_id, parse_mode=&#39;Markdown&#39;,
+                                        reply_markup=markup)
+              else:
+                  text = f&quot;你的ID：`&#123;user_id&#125;`\\n&quot; \\
+                         f&quot;已有账号数:`&#123;len(account_list)&#125;`&quot;
+  
+                  markup = types.InlineKeyboardMarkup()
+                  for a in account_list:
+                      markup.add(types.InlineKeyboardButton(a[&#39;name&#39;], callback_data=f&quot;onedrive &#123;a[&#39;name&#39;]&#125;&quot;))
+  
+                  markup.add(types.InlineKeyboardButton(&quot;添加账号&quot;, callback_data=&quot;add_account&quot;))
+                  markup.add(types.InlineKeyboardButton(&quot;删除账号&quot;, callback_data=&quot;del_account&quot;))
+  
+                  bot.edit_message_text(text, call.message.chat.id, call.message.message_id, parse_mode=&#39;Markdown&#39;,
+                                        reply_markup=markup)
+  
+          else:
+              print(&quot;用户不存在&quot;)
+              Telegram_list = list(data[&#39;Telegram list&#39;])
+              config_data = &#123;&#125;
+              config_data[&#39;id&#39;] = user_id
+              config_data[&#39;account list&#39;] = []
+              Telegram_list.append(config_data)
+              data[&#39;Telegram list&#39;] = Telegram_list
+              with open(&quot;config.json&quot;, &quot;w&quot;) as jsonFile:
+                  json.dump(data, jsonFile, indent=4, ensure_ascii=False)
+                  jsonFile.close()
+  
+              account_list = config_data[&#39;account list&#39;]
+  
+              text = f&quot;你的ID：`&#123;user_id&#125;`\\n&quot; \\
+                     f&quot;已有账号数:`&#123;len(account_list)&#125;`&quot;
+  
+              markup = types.InlineKeyboardMarkup()
+              markup.add(types.InlineKeyboardButton(&quot;添加账号&quot;, callback_data=&quot;add_account&quot;))
+  
+              bot.edit_message_text(text, call.message.chat.id, call.message.message_id, parse_mode=&#39;Markdown&#39;,
+                                    reply_markup=markup)
+  
+      except Exception as e:
+          input(f&quot;读取配置错误:&#123;e&#125;&quot;)
+  else:
+      print(&quot;未找到配置&quot;)
+      with open(&quot;config.json&quot;, &quot;a&quot;) as file:  # 只需要将之前的”w&quot;改为“a&quot;即可，代表追加内容
+          file.close()
+</code></pre>
+  except Exception as e:<pre><code>  print(e)
+</code></pre>
+  @bot.message_handler(commands=[‘start’], func=lambda message: (message.chat.type == “private”))<br>  def start_info(message):  try:<pre><code>  text = &quot;本Bot为Onedrive同域转存的工具，旨在方便广大群友转存\\n&quot; \\
+         &quot;注意：\\n&quot; \\
+         &quot;- 本Bot获取的权限可对你的onedrive文件进行一系列操作，介意请勿使用\\n&quot; \\
+         &quot;- 此Bot使用microsoft官方API，复制操作仅为向微软服务器提交复制请求，非vps搬运\\n&quot; \\
+         &quot;- 不支持带密码的分享链接\\n&quot; \\
+         &quot;- Bot提交时为单线程，速度较慢但避免滥用\\n&quot; \\
+         &quot;- 此Bot不支持世纪互联\\n\\n&quot; \\
+         &quot;使用方法:\\n&quot; \\
+         &quot;1 - 在账号列表添加账号\\n&quot; \\
+         &quot;2 - 进入账号设定保存文件夹\\n&quot; \\
+         &quot;3 - 向Bot发送分享链接，选择正确的账号\\n&quot; \\
+         &quot;4 - 等待提交任务完成&quot;
+
+  markup = types.InlineKeyboardMarkup()
+  markup.add(types.InlineKeyboardButton(&quot;账号列表&quot;, callback_data=&quot;account list&quot;))
+  
+  bot.send_message(message.chat.id, text, disable_notification=True, reply_markup=markup)
+</code></pre>
+  except Exception as e:<pre><code>  print(f&quot;start 错误:&#123;e&#125;&quot;)
+  bot.send_message(message.chat.id, f&quot;start 错误:`&#123;e&#125;`&quot;, parse_mode=&#39;Markdown&#39;)
+</code></pre>
+  @bot.message_handler(content_types=[‘text’],func=lambda message: “https” in str(message.text))<br>  def get_share_url(message):  try:<pre><code>  print(message)
+  print(message.text)
+  user_id = message.from_user.id
+  if &quot;https&quot; in str(message.text):
+      print(&quot;检测到链接&quot;)
+      bot.delete_message(chat_id=message.chat.id,message_id=message.message_id)
+  
+      url = re.findall(&#39;([a-zA-z]+://[^\\s]*)&#39;, str(message.text))[0]
+  
+      print(url)
+  
+      text=f&quot;检测到链接:&#123;url&#125;\\n&quot; \\
+           f&quot;请选择保存的od账号\\n&quot; \\
+           f&quot;**保存前请设定好保存文件夹**&quot;
+  
+      with open(&quot;config.json&quot;, &quot;r&quot;, encoding=&#39;utf-8&#39;) as jsonFile:
+          data = json.load(jsonFile)
+          jsonFile.close()
+      Telegram_list = data[&#39;Telegram list&#39;]
+      for a in Telegram_list:
+          if str(a[&#39;id&#39;]) == str(user_id):
+  
+              account_list = list(a[&quot;account list&quot;])
+  
+      markup = types.InlineKeyboardMarkup()
+      for a in account_list:
+          markup.add(types.InlineKeyboardButton(a[&#39;name&#39;], callback_data=f&quot;copy &#123;a[&#39;name&#39;]&#125;&quot;))
+  
+      bot.send_message(text=text, chat_id=message.chat.id,
+                            reply_markup=markup)
+</code></pre>
+  except Exception as e:<pre><code>  print(e)
+</code></pre>
+  if <strong>name</strong> == ‘<strong>main</strong>‘:<br>  bot.enable_save_next_step_handlers(delay=2)<h1 id="Load-next-step-handlers-from-save-file-default-“-handlers-saves-step-save”"><a href="#Load-next-step-handlers-from-save-file-default-“-handlers-saves-step-save”" class="headerlink" title="Load next_step_handlers from save file (default “./.handlers-saves/step.save”)"></a>Load next_step_handlers from save file (default “./.handlers-saves/step.save”)</h1><h1 id="WARNING-It-will-work-only-if-enable-save-next-step-handlers-was-called"><a href="#WARNING-It-will-work-only-if-enable-save-next-step-handlers-was-called" class="headerlink" title="WARNING It will work only if enable_save_next_step_handlers was called!"></a>WARNING It will work only if enable_save_next_step_handlers was called!</h1>  bot.load_next_step_handlers()<br>  while True:<pre><code>  try:
+      print(&quot;启动机器人&quot;)
+      bot.polling(none_stop=True, timeout=100)
+  except Exception as e:
+      print(f&quot;启动失败&#123;e&#125;&quot;)
+      log = open(&#39;log.txt&#39;, &#39;a&#39;)
+      log.writelines(&quot;启动错误: &#123;&#125;\\n&quot;.format(e))
+      log.close()
+      time.sleep(10)
+</code></pre>
+</li>
+<li>代码config.json  {<br>  “Telegram list”: [  ]  }</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/481835d4-86be-4619-8767-b03f277b71a6/main.py">main.py</a></p>
+<p><a target="_blank" rel="noopener" href="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/f23f53da-e7d6-4816-82e1-e3cb06b34faf/config.json">config.json</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">二蛋</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.hacg.cf/posts/45698/">http://blog.hacg.cf/posts/45698/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.hacg.cf" target="_blank">ONLYONE</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%BD%AC%E5%AD%98/">转存</a><a class="post-meta__tags" href="/tags/onedrive/">onedrive</a></div><div class="post_share"><div class="social-share" data-image="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B46%E6%9C%88%E5%8F%B7/acg.gy_19.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/60766/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B45%E6%9C%88%E5%8F%B7/acg.gy_16.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Statically.io：一款免费、强大、迅速的CDN加速服务</div></div></a></div><div class="next-post pull-right"><a href="/posts/42327/"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B41%E6%9C%88%E5%8F%B7/acg,gy_05.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">hostloc每日签到代码</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/60039/" title="谷歌 gd-utils 百宝箱详细教程"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B45%E6%9C%88%E5%8F%B7/acg.gy_27.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-02</div><div class="title">谷歌 gd-utils 百宝箱详细教程</div></div></a></div><div><a href="/posts/1647/" title="用Telegram Bot轻松上传文件到自己的云端硬盘"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B44%E6%9C%88%E5%8F%B7/www.acg.gy_13.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-17</div><div class="title">用Telegram Bot轻松上传文件到自己的云端硬盘</div></div></a></div><div><a href="/posts/34183/" title="Cloudflare Workers 部署OnePoint"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B45%E6%9C%88%E5%8F%B7/acg.gy_45.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-09</div><div class="title">Cloudflare Workers 部署OnePoint</div></div></a></div><div><a href="/posts/36978/" title="office全局管理面板搭建"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202017%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202017%E5%B9%B44%E6%9C%88%E5%8F%B7/11.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-15</div><div class="title">office全局管理面板搭建</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://f002.backblazeb2.com/file/zhuziz/1421b5f50fBWB4q-modified+(1).png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">二蛋</div><div class="author-info__description">愿世间美好与你环环相扣</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">40</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:avgo265@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">曾经相遇，总胜过从未碰头</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E4%B8%8A%E4%BC%A0%E6%BA%90%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text">1. 上传源码</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%AE%89%E8%A3%85-python-%E4%BE%9D%E8%B5%96%E5%BA%93"><span class="toc-number">2.</span> <span class="toc-text">2. 安装 python 依赖库</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E8%BF%90%E8%A1%8C-bot"><span class="toc-number">3.</span> <span class="toc-text">3. 运行 bot</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#print-html-json"><span class="toc-number">4.</span> <span class="toc-text">print(html.json())</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#print-copy-list"><span class="toc-number">5.</span> <span class="toc-text">print(copy_list)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#print-html-json-1"><span class="toc-number">6.</span> <span class="toc-text">print(html.json())</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%A7%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">7.</span> <span class="toc-text">大文件夹</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#print-f%E2%80%9D-new-folder-name-%E5%85%A8%E9%83%A8%E5%A4%8D%E5%88%B6%E5%AE%8C%E6%88%90%E2%80%9D"><span class="toc-number">8.</span> <span class="toc-text">print(f”{new_folder_name} 全部复制完成”)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#print-data-bytes64-String"><span class="toc-number">9.</span> <span class="toc-text">print(data_bytes64_String)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Load-next-step-handlers-from-save-file-default-%E2%80%9C-handlers-saves-step-save%E2%80%9D"><span class="toc-number">10.</span> <span class="toc-text">Load next_step_handlers from save file (default “.&#x2F;.handlers-saves&#x2F;step.save”)</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#WARNING-It-will-work-only-if-enable-save-next-step-handlers-was-called"><span class="toc-number">11.</span> <span class="toc-text">WARNING It will work only if enable_save_next_step_handlers was called!</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/27817/" title="分享两个正版免费的Microsoft365企业订阅"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B45%E6%9C%88%E5%8F%B7/acg.gy_08.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分享两个正版免费的Microsoft365企业订阅"/></a><div class="content"><a class="title" href="/posts/27817/" title="分享两个正版免费的Microsoft365企业订阅">分享两个正版免费的Microsoft365企业订阅</a><time datetime="2022-01-22T07:25:58.948Z" title="发表于 2022-01-22 15:25:58">2022-01-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/25781/" title="目录列表程序AList使用教程"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B46%E6%9C%88%E5%8F%B7/acg.gy_01.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="目录列表程序AList使用教程"/></a><div class="content"><a class="title" href="/posts/25781/" title="目录列表程序AList使用教程">目录列表程序AList使用教程</a><time datetime="2022-01-06T11:38:47.544Z" title="发表于 2022-01-06 19:38:47">2022-01-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/38125/" title="修改微软全局sharepoint二级域名前缀"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B46%E6%9C%88%E5%8F%B7/acg.gy_25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="修改微软全局sharepoint二级域名前缀"/></a><div class="content"><a class="title" href="/posts/38125/" title="修改微软全局sharepoint二级域名前缀">修改微软全局sharepoint二级域名前缀</a><time datetime="2022-01-04T14:00:11.581Z" title="发表于 2022-01-04 22:00:11">2022-01-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/27099/" title="Linux VPS使用Rclone挂载Google Drive为本地硬盘使用"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202019%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202019%E5%B9%B46%E6%9C%88%E5%8F%B7/www.acg.gy_11.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux VPS使用Rclone挂载Google Drive为本地硬盘使用"/></a><div class="content"><a class="title" href="/posts/27099/" title="Linux VPS使用Rclone挂载Google Drive为本地硬盘使用">Linux VPS使用Rclone挂载Google Drive为本地硬盘使用</a><time datetime="2022-01-04T04:27:42.093Z" title="发表于 2022-01-04 12:27:42">2022-01-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/56727/" title="一键DD脚本"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B49%E6%9C%88%E5%8F%B7/acg.gy_39.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一键DD脚本"/></a><div class="content"><a class="title" href="/posts/56727/" title="一键DD脚本">一键DD脚本</a><time datetime="2022-01-03T08:37:30.378Z" title="发表于 2022-01-03 16:37:30">2022-01-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By 二蛋</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> {preloader.endLoading()})
+setTimeout(function(){preloader.endLoading();}, 3000);</script></div><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'gD1fw0hsoMOCmD2Hu6j5XbEb-gzGzoHsz',
+      appKey: 'ouAou6Jj84AxPzB1XbpM8iI3',
+      placeholder: '',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+      requiredFields: ["nick,mail"],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer src="https://cdn.jsdelivr.net/gh/graingert/wow@1.3.0/dist/wow.min.js"></script><script defer data-pjax src="/js/wow_init.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

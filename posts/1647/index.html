@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>用Telegram Bot轻松上传文件到自己的云端硬盘 | ONLYONE</title><meta name="keywords" content="转存,heroku,Google drive"><meta name="author" content="二蛋"><meta name="copyright" content="二蛋"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言每次要上传档案 都要开启Google云端硬盘 还要登入才能使用 有没有更快的方式呢？ 当然有 但要写程序 对于现代忙碌的人实在太痛苦了 程序就让我帮你写吧 你们只要复制贴上就可以完成 实作前置作业1.拥有一个Telegram帐号 2.拥有一个Heroku帐号 3.拥有一个Google帐号 *Heroku APP名称建议与Telegram Bot名称相同，较好管理 第一步到Github点我前往">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用Telegram Bot轻松上传文件到自己的云端硬盘">
+<meta property="og:url" content="http://blog.hacg.cf/posts/1647/index.html">
+<meta property="og:site_name" content="ONLYONE">
+<meta property="og:description" content="前言每次要上传档案 都要开启Google云端硬盘 还要登入才能使用 有没有更快的方式呢？ 当然有 但要写程序 对于现代忙碌的人实在太痛苦了 程序就让我帮你写吧 你们只要复制贴上就可以完成 实作前置作业1.拥有一个Telegram帐号 2.拥有一个Heroku帐号 3.拥有一个Google帐号 *Heroku APP名称建议与Telegram Bot名称相同，较好管理 第一步到Github点我前往">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B44%E6%9C%88%E5%8F%B7/www.acg.gy_13.jpg">
+<meta property="article:published_time" content="2021-11-17T08:57:41.320Z">
+<meta property="article:modified_time" content="2021-11-17T08:58:39.356Z">
+<meta property="article:author" content="二蛋">
+<meta property="article:tag" content="转存">
+<meta property="article:tag" content="heroku">
+<meta property="article:tag" content="Google drive">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B44%E6%9C%88%E5%8F%B7/www.acg.gy_13.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://blog.hacg.cf/posts/1647/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-212316951-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-212316951-1');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 二蛋","link":"链接: ","source":"来源: ONLYONE","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '用Telegram Bot轻松上传文件到自己的云端硬盘',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-11-17 16:58:39'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://f002.backblazeb2.com/file/zhuziz/1421b5f50fBWB4q-modified+(1).png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">40</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B44%E6%9C%88%E5%8F%B7/www.acg.gy_13.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">ONLYONE</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">用Telegram Bot轻松上传文件到自己的云端硬盘</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-17T08:57:41.320Z" title="发表于 2021-11-17 16:57:41">2021-11-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-11-17T08:58:39.356Z" title="更新于 2021-11-17 16:58:39">2021-11-17</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">679</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="用Telegram Bot轻松上传文件到自己的云端硬盘"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>每次要上传档案</p>
+<p>都要开启Google云端硬盘</p>
+<p>还要登入才能使用</p>
+<p>有没有更快的方式呢？</p>
+<p>当然有</p>
+<p>但要写程序</p>
+<p>对于现代忙碌的人实在太痛苦了</p>
+<p>程序就让我帮你写吧</p>
+<p>你们只要复制贴上就可以完成</p>
+<h1 id="实作"><a href="#实作" class="headerlink" title="实作"></a>实作</h1><h2 id="前置作业"><a href="#前置作业" class="headerlink" title="前置作业"></a>前置作业</h2><p>1.拥有一个Telegram帐号</p>
+<p>2.拥有一个Heroku帐号</p>
+<p>3.拥有一个Google帐号</p>
+<p>*Heroku APP名称建议与Telegram Bot名称相同，较好管理</p>
+<h2 id="第一步到Github"><a href="#第一步到Github" class="headerlink" title="第一步到Github"></a>第一步到Github</h2><p><a target="_blank" rel="noopener" href="https://github.com/SAOJSM/TG-UPLOAD-FILE-TO-GDRIVE"><strong>点我前往</strong></a></p>
+<h2 id="第二步找到Deploying内的紫色按钮按下，并登入Heroku"><a href="#第二步找到Deploying内的紫色按钮按下，并登入Heroku" class="headerlink" title="第二步找到Deploying内的紫色按钮按下，并登入Heroku"></a>第二步找到Deploying内的紫色按钮按下，并登入Heroku</h2><p>如下图↓</p>
+<p><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://eggs.eggsmemory.workers.dev/TGBOT%20GDRIVE/Deploying.jpg" alt="img"></p>
+<h2 id="第三步-开始部属程序"><a href="#第三步-开始部属程序" class="headerlink" title="第三步 开始部属程序"></a>第三步 开始部属程序</h2><h3 id="1-到Telegram官网新增APP"><a href="#1-到Telegram官网新增APP" class="headerlink" title="1.到Telegram官网新增APP"></a>1.到Telegram官网新增APP</h3><p><strong><a target="_blank" rel="noopener" href="https://my.telegram.org/apps">点我前往</a></strong></p>
+<h3 id="2-复制api-id、api-hash到Heroku对应字段（每一格都有中文说明）"><a href="#2-复制api-id、api-hash到Heroku对应字段（每一格都有中文说明）" class="headerlink" title="2.复制api_id、api_hash到Heroku对应字段（每一格都有中文说明）"></a>2.复制api_id、api_hash到Heroku对应字段（每一格都有中文说明）</h3><h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="3-到BotFather新增机器人"><a href="#3-到BotFather新增机器人" class="headerlink" title="3.到BotFather新增机器人"></a>3.到BotFather新增机器人</h3><p><strong><a target="_blank" rel="noopener" href="https://my.telegram.org/apps">点我前往</a></strong></p>
+<h3 id="4-複製token-直接點擊即可複製-貼到Heroku對應欄位-每一格都有中文說明"><a href="#4-複製token-直接點擊即可複製-貼到Heroku對應欄位-每一格都有中文說明" class="headerlink" title="4.複製token(直接點擊即可複製)貼到Heroku對應欄位(每一格都有中文說明)"></a>4.複製token(直接點擊即可複製)貼到Heroku對應欄位(每一格都有中文說明)</h3><h3 id="5-取得自己的Telegramid"><a href="#5-取得自己的Telegramid" class="headerlink" title="5.取得自己的Telegramid"></a>5.取得自己的Telegramid</h3><p><a target="_blank" rel="noopener" href="https://t.me/userinfobot"><strong>點我前往</strong></a></p>
+<p>點擊Start後複製Id後面的數字貼到Heroku對應欄位(每一格都有中文說明)</p>
+<h3 id="5-取得Support-Chat-Link"><a href="#5-取得Support-Chat-Link" class="headerlink" title="5.取得Support Chat Link"></a>5.取得Support Chat Link</h3><p><strong><a target="_blank" rel="noopener" href="https://my.telegram.org/apps">點我前往</a></strong></p>
+<p>複製BotFather回應中t.me開頭的網址貼到Heroku對應欄位(每一格都有中文說明)</p>
+<h3 id="6-點選Deploy-app，等待完成"><a href="#6-點選Deploy-app，等待完成" class="headerlink" title="6.點選Deploy app，等待完成"></a>6.點選Deploy app，等待完成</h3><h3 id="7-讓APP開始運作"><a href="#7-讓APP開始運作" class="headerlink" title="7.讓APP開始運作"></a>7.讓APP開始運作</h3><p>點選Manage APP → Resources → 找到Free Dynos內指令最後方的鉛筆 → 點擊鉛筆並將開關開啟 →點選Confirm即可</p>
+<h3 id="8-紀錄-Bot-指令方便快速操作"><a href="#8-紀錄-Bot-指令方便快速操作" class="headerlink" title="8.紀錄 Bot 指令方便快速操作"></a>8.紀錄 Bot 指令方便快速操作</h3><p>回到Bot Father → 輸入 /mybots → 選擇你新增的機器人 → 點選 Edit Bot → 點選 Edit Commands</p>
+<p>貼上下方指令(紅字部分)再按下Enter</p>
+<p>start - 無用指令<br>help - 查看幫助<br>auth - 授權Bot取得Google Drive權限<br>setfolder - 指定上傳資料夾<br>copy - 拷貝雲端硬碟檔案<br>revoke - 撤銷Bot權限<br>del - 刪除雲端硬碟檔案</p>
+<h3 id="9-授权机器人"><a href="#9-授权机器人" class="headerlink" title="9.授权机器人"></a>9.授权机器人</h3><p>点击Bot Father在新增完给你的响应中的链接（同Support Chat Link）</p>
+<p>输入 /auth 点击 Bot 给你的链接</p>
+<p>登入Google并同意权限</p>
+<p>将授权码贴给Bot即可</p>
+<h3 id="10-指定上传文件夹（可选）"><a href="#10-指定上传文件夹（可选）" class="headerlink" title="10.指定上传文件夹（可选）"></a>10.指定上传文件夹（可选）</h3><p>把Google云端硬盘文件夹的网址整个复制下来，贴在/setfolder后面（记得空一格）</p>
+<p>格式：/setfolder云端硬盘文件夹网址</p>
+<p>*红字部分替换为你的云端硬盘文件夹</p>
+<p>*若不指定就会直接上传到根目录</p>
+<h3 id="11-完成"><a href="#11-完成" class="headerlink" title="11.完成"></a>11.完成</h3><p>之后可以直接转传到Telegram档案给机器人</p>
+<p>或是上传档案、音档、影片给机器人</p>
+<p>也可以把链接直接给机器人</p>
+<p>它就会帮你（下载后）上传到云端硬盘了</p>
+<p>*请把机器人当作人，不要一次丢太多档案给它，很容易造成程序崩溃</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">二蛋</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.hacg.cf/posts/1647/">http://blog.hacg.cf/posts/1647/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.hacg.cf" target="_blank">ONLYONE</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%BD%AC%E5%AD%98/">转存</a><a class="post-meta__tags" href="/tags/heroku/">heroku</a><a class="post-meta__tags" href="/tags/Google-drive/">Google drive</a></div><div class="post_share"><div class="social-share" data-image="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B44%E6%9C%88%E5%8F%B7/www.acg.gy_13.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/34536/"><img class="prev-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B43%E6%9C%88%E5%8F%B7/www.acg.gy_15.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">无需申请,手动把Onedrive for business容量扩充到25T</div></div></a></div><div class="next-post pull-right"><a href="/posts/36110/"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202018%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202018%E5%B9%B44%E6%9C%88%E5%8F%B7/ACG.GY_07.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">微软OneDrive网盘免费升级到25T容量教程</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/posts/60039/" title="谷歌 gd-utils 百宝箱详细教程"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B45%E6%9C%88%E5%8F%B7/acg.gy_27.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-02</div><div class="title">谷歌 gd-utils 百宝箱详细教程</div></div></a></div><div><a href="/posts/45698/" title="OneDrive同域一键转存机器人源码及搭建教程"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B46%E6%9C%88%E5%8F%B7/acg.gy_19.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-06</div><div class="title">OneDrive同域一键转存机器人源码及搭建教程</div></div></a></div><div><a href="/posts/60038/" title="Heroku搭建V2ray教程"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B411%E6%9C%88%E5%8F%B7/acg.gy_11.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-04</div><div class="title">Heroku搭建V2ray教程</div></div></a></div><div><a href="/posts/63489/" title="一个支持部署在Heroku上的Telegram搜图机器人"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B42%E6%9C%88%E5%8F%B7/ACG.GY_16.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-22</div><div class="title">一个支持部署在Heroku上的Telegram搜图机器人</div></div></a></div><div><a href="/posts/49122/" title="Nazurin - 基于 Telegram, Heroku, MEGA 及 Firebase 的图片收藏自动工作流"><img class="cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B49%E6%9C%88%E5%8F%B7/acg.gy_78.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-24</div><div class="title">Nazurin - 基于 Telegram, Heroku, MEGA 及 Firebase 的图片收藏自动工作流</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://f002.backblazeb2.com/file/zhuziz/1421b5f50fBWB4q-modified+(1).png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">二蛋</div><div class="author-info__description">愿世间美好与你环环相扣</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">40</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">43</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:avgo265@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">曾经相遇，总胜过从未碰头</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%9E%E4%BD%9C"><span class="toc-number">2.</span> <span class="toc-text">实作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E4%BD%9C%E4%B8%9A"><span class="toc-number">2.1.</span> <span class="toc-text">前置作业</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%E5%88%B0Github"><span class="toc-number">2.2.</span> <span class="toc-text">第一步到Github</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%E6%89%BE%E5%88%B0Deploying%E5%86%85%E7%9A%84%E7%B4%AB%E8%89%B2%E6%8C%89%E9%92%AE%E6%8C%89%E4%B8%8B%EF%BC%8C%E5%B9%B6%E7%99%BB%E5%85%A5Heroku"><span class="toc-number">2.3.</span> <span class="toc-text">第二步找到Deploying内的紫色按钮按下，并登入Heroku</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5-%E5%BC%80%E5%A7%8B%E9%83%A8%E5%B1%9E%E7%A8%8B%E5%BA%8F"><span class="toc-number">2.4.</span> <span class="toc-text">第三步 开始部属程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%B0Telegram%E5%AE%98%E7%BD%91%E6%96%B0%E5%A2%9EAPP"><span class="toc-number">2.4.1.</span> <span class="toc-text">1.到Telegram官网新增APP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%A4%8D%E5%88%B6api-id%E3%80%81api-hash%E5%88%B0Heroku%E5%AF%B9%E5%BA%94%E5%AD%97%E6%AE%B5%EF%BC%88%E6%AF%8F%E4%B8%80%E6%A0%BC%E9%83%BD%E6%9C%89%E4%B8%AD%E6%96%87%E8%AF%B4%E6%98%8E%EF%BC%89"><span class="toc-number">2.4.2.</span> <span class="toc-text">2.复制api_id、api_hash到Heroku对应字段（每一格都有中文说明）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">2.4.3.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%88%B0BotFather%E6%96%B0%E5%A2%9E%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="toc-number">2.4.4.</span> <span class="toc-text">3.到BotFather新增机器人</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%A4%87%E8%A3%BDtoken-%E7%9B%B4%E6%8E%A5%E9%BB%9E%E6%93%8A%E5%8D%B3%E5%8F%AF%E8%A4%87%E8%A3%BD-%E8%B2%BC%E5%88%B0Heroku%E5%B0%8D%E6%87%89%E6%AC%84%E4%BD%8D-%E6%AF%8F%E4%B8%80%E6%A0%BC%E9%83%BD%E6%9C%89%E4%B8%AD%E6%96%87%E8%AA%AA%E6%98%8E"><span class="toc-number">2.4.5.</span> <span class="toc-text">4.複製token(直接點擊即可複製)貼到Heroku對應欄位(每一格都有中文說明)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%8F%96%E5%BE%97%E8%87%AA%E5%B7%B1%E7%9A%84Telegramid"><span class="toc-number">2.4.6.</span> <span class="toc-text">5.取得自己的Telegramid</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E5%8F%96%E5%BE%97Support-Chat-Link"><span class="toc-number">2.4.7.</span> <span class="toc-text">5.取得Support Chat Link</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-%E9%BB%9E%E9%81%B8Deploy-app%EF%BC%8C%E7%AD%89%E5%BE%85%E5%AE%8C%E6%88%90"><span class="toc-number">2.4.8.</span> <span class="toc-text">6.點選Deploy app，等待完成</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-%E8%AE%93APP%E9%96%8B%E5%A7%8B%E9%81%8B%E4%BD%9C"><span class="toc-number">2.4.9.</span> <span class="toc-text">7.讓APP開始運作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E7%B4%80%E9%8C%84-Bot-%E6%8C%87%E4%BB%A4%E6%96%B9%E4%BE%BF%E5%BF%AB%E9%80%9F%E6%93%8D%E4%BD%9C"><span class="toc-number">2.4.10.</span> <span class="toc-text">8.紀錄 Bot 指令方便快速操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E6%8E%88%E6%9D%83%E6%9C%BA%E5%99%A8%E4%BA%BA"><span class="toc-number">2.4.11.</span> <span class="toc-text">9.授权机器人</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-%E6%8C%87%E5%AE%9A%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%A4%B9%EF%BC%88%E5%8F%AF%E9%80%89%EF%BC%89"><span class="toc-number">2.4.12.</span> <span class="toc-text">10.指定上传文件夹（可选）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-%E5%AE%8C%E6%88%90"><span class="toc-number">2.4.13.</span> <span class="toc-text">11.完成</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/27817/" title="分享两个正版免费的Microsoft365企业订阅"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B45%E6%9C%88%E5%8F%B7/acg.gy_08.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分享两个正版免费的Microsoft365企业订阅"/></a><div class="content"><a class="title" href="/posts/27817/" title="分享两个正版免费的Microsoft365企业订阅">分享两个正版免费的Microsoft365企业订阅</a><time datetime="2022-01-22T07:25:58.948Z" title="发表于 2022-01-22 15:25:58">2022-01-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/25781/" title="目录列表程序AList使用教程"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B46%E6%9C%88%E5%8F%B7/acg.gy_01.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="目录列表程序AList使用教程"/></a><div class="content"><a class="title" href="/posts/25781/" title="目录列表程序AList使用教程">目录列表程序AList使用教程</a><time datetime="2022-01-06T11:38:47.544Z" title="发表于 2022-01-06 19:38:47">2022-01-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/38125/" title="修改微软全局sharepoint二级域名前缀"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B46%E6%9C%88%E5%8F%B7/acg.gy_25.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="修改微软全局sharepoint二级域名前缀"/></a><div class="content"><a class="title" href="/posts/38125/" title="修改微软全局sharepoint二级域名前缀">修改微软全局sharepoint二级域名前缀</a><time datetime="2022-01-04T14:00:11.581Z" title="发表于 2022-01-04 22:00:11">2022-01-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/27099/" title="Linux VPS使用Rclone挂载Google Drive为本地硬盘使用"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202019%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202019%E5%B9%B46%E6%9C%88%E5%8F%B7/www.acg.gy_11.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Linux VPS使用Rclone挂载Google Drive为本地硬盘使用"/></a><div class="content"><a class="title" href="/posts/27099/" title="Linux VPS使用Rclone挂载Google Drive为本地硬盘使用">Linux VPS使用Rclone挂载Google Drive为本地硬盘使用</a><time datetime="2022-01-04T04:27:42.093Z" title="发表于 2022-01-04 12:27:42">2022-01-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/56727/" title="一键DD脚本"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B49%E6%9C%88%E5%8F%B7/acg.gy_39.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一键DD脚本"/></a><div class="content"><a class="title" href="/posts/56727/" title="一键DD脚本">一键DD脚本</a><time datetime="2022-01-03T08:37:30.378Z" title="发表于 2022-01-03 16:37:30">2022-01-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By 二蛋</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> {preloader.endLoading()})
+setTimeout(function(){preloader.endLoading();}, 3000);</script></div><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'gD1fw0hsoMOCmD2Hu6j5XbEb-gzGzoHsz',
+      appKey: 'ouAou6Jj84AxPzB1XbpM8iI3',
+      placeholder: '',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+      requiredFields: ["nick,mail"],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer src="https://cdn.jsdelivr.net/gh/graingert/wow@1.3.0/dist/wow.min.js"></script><script defer data-pjax src="/js/wow_init.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
