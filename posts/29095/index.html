@@ -1,0 +1,337 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pxder：P站(Pixiv)插画批量下载器 | ONLYONE</title><meta name="keywords" content="Pixiv"><meta name="author" content="二蛋"><meta name="copyright" content="二蛋"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="原项目：https:&#x2F;&#x2F;github.com&#x2F;Tsuk1ko&#x2F;pxder pixiv downloader 简单写下说明（主要针对 Windows 用户） 准备首先你需要先安装 Node.js Windows &#x2F; Mac打开官网 &#x3D;&gt; 下载左边的 LTS 版本 &#x3D;&gt; 安装一路确定 Linux1234567891011# Ubuntucurl -sL https:&#x2F;&#x2F;deb.nodeso">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pxder：P站(Pixiv)插画批量下载器">
+<meta property="og:url" content="http://blog.hacg.cf/posts/29095/index.html">
+<meta property="og:site_name" content="ONLYONE">
+<meta property="og:description" content="原项目：https:&#x2F;&#x2F;github.com&#x2F;Tsuk1ko&#x2F;pxder pixiv downloader 简单写下说明（主要针对 Windows 用户） 准备首先你需要先安装 Node.js Windows &#x2F; Mac打开官网 &#x3D;&gt; 下载左边的 LTS 版本 &#x3D;&gt; 安装一路确定 Linux1234567891011# Ubuntucurl -sL https:&#x2F;&#x2F;deb.nodeso">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202016%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202016%E5%B9%B41%E6%9C%88%E5%8F%B7/21.jpg">
+<meta property="article:published_time" content="2022-02-06T08:21:13.216Z">
+<meta property="article:modified_time" content="2022-02-06T08:21:13.216Z">
+<meta property="article:author" content="二蛋">
+<meta property="article:tag" content="Pixiv">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202016%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202016%E5%B9%B41%E6%9C%88%E5%8F%B7/21.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://blog.hacg.cf/posts/29095/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-212316951-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-212316951-1');
+</script><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: 二蛋","link":"链接: ","source":"来源: ONLYONE","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Pxder：P站(Pixiv)插画批量下载器',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-02-06 16:21:13'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://f002.backblazeb2.com/file/zhuziz/1421b5f50fBWB4q-modified+(1).png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">43</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">45</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202016%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202016%E5%B9%B41%E6%9C%88%E5%8F%B7/21.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">ONLYONE</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fa fa-paper-plane"></i><span> 留言板</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Pxder：P站(Pixiv)插画批量下载器</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-02-06T08:21:13.216Z" title="发表于 2022-02-06 16:21:13">2022-02-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-02-06T08:21:13.216Z" title="更新于 2022-02-06 16:21:13">2022-02-06</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>7分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Pxder：P站(Pixiv)插画批量下载器"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>原项目：<a target="_blank" rel="noopener" href="https://github.com/Tsuk1ko/pxder">https://github.com/Tsuk1ko/pxder</a></p>
+<h1 id="pixiv-downloader"><a href="#pixiv-downloader" class="headerlink" title="pixiv downloader"></a>pixiv downloader</h1><p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/19dd7254e2e05e5c455dbba3db7b7ae9bfcef91edd95e1d1a7c840aff457631f/68747470733a2f2f692e6c6f6c692e6e65742f323031382f30382f32302f356237616163636662316334612e676966"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://camo.githubusercontent.com/19dd7254e2e05e5c455dbba3db7b7ae9bfcef91edd95e1d1a7c840aff457631f/68747470733a2f2f692e6c6f6c692e6e65742f323031382f30382f32302f356237616163636662316334612e676966" alt="运行示例"></a></p>
+<p>简单写下说明（主要针对 Windows 用户）</p>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p>首先你需要先安装 Node.js</p>
+<h3 id="Windows-Mac"><a href="#Windows-Mac" class="headerlink" title="Windows / Mac"></a>Windows / Mac</h3><p>打开<a target="_blank" rel="noopener" href="https://nodejs.org/">官网</a> =&gt; 下载左边的 LTS 版本 =&gt; 安装一路确定</p>
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># Ubuntu</span><br><span class="line">curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -</span><br><span class="line">sudo apt-get install -y nodejs</span><br><span class="line"></span><br><span class="line"># Debian</span><br><span class="line">curl -sL https://deb.nodesource.com/setup_12.x | bash -</span><br><span class="line">apt-get install -y nodejs</span><br><span class="line"></span><br><span class="line"># Centos</span><br><span class="line">curl -sL https://rpm.nodesource.com/setup_12.x | bash -</span><br><span class="line">yum install -y nodejs</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装-更新-卸载"><a href="#安装-更新-卸载" class="headerlink" title="安装/更新/卸载"></a>安装/更新/卸载</h2><p>Windows 打开“命令提示符”或者“Powershell”，执行下面的命令，即可安装或者更新（注：后续命令皆为在此执行）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -g pxder</span><br></pre></td></tr></table></figure>
+
+<p>如需卸载，执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm uninstall -g pxder</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>不同计算机用户的数据是独立储存的，互不影响</p>
+<h3 id="登录"><a href="#登录" class="headerlink" title="登录"></a>登录</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pxder --login</span><br></pre></td></tr></table></figure>
+
+<h4 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h4><p>正常情况下应该会自动弹出浏览器访问一个登录授权页面，如果没有的话请手动打开“Login URL”，操作下去即可</p>
+<p>登录成功时浏览器会弹出如下图所示的一个对话框，选择“打开”即可，这时 pxder 应该会显示登录成功</p>
+<p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/99228b98a813a3d3b764efcd815b778de17b43814f296405a084c926bad5e15a/68747470733a2f2f692e6c6f6c692e6e65742f323032312f30322f31332f316e59693856766a6639546b6375502e706e67"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://camo.githubusercontent.com/99228b98a813a3d3b764efcd815b778de17b43814f296405a084c926bad5e15a/68747470733a2f2f692e6c6f6c692e6e65742f323032312f30322f31332f316e59693856766a6639546b6375502e706e67" alt="打开应用"></a></p>
+<p>如果你的体验与上述情况不一致，请使用 <code>pxder --login --no-protocol</code> 命令进行登录，并参考下面的“其他系统”部分进行操作</p>
+<h4 id="其他系统"><a href="#其他系统" class="headerlink" title="其他系统"></a>其他系统</h4><p>正常情况下应该会自动弹出浏览器访问一个登录授权页面，如果没有的话请手动打开“Login URL”，不要急着登录或授权，按以下步骤操作：</p>
+<ol>
+<li>按下 F12 打开“开发者工具”，切换到“Network”选项卡，勾选“Preserve log”</li>
+<li>进行登录或授权操作，最终会进入一个空白页面</li>
+<li>点击“Doc”进行筛选，找到（一般是）最后一个请求，将 <code>code</code> 参数复制出来，粘贴到程序中并回车</li>
+</ol>
+<p>以上步骤尽量快速完成，太慢的话验证可能会过期</p>
+<p><a target="_blank" rel="noopener" href="https://camo.githubusercontent.com/d00a7d104a6fb740c6c8b58e2e4da61d2d0eb0a8f5609d5c0d549ffbc747dc78/68747470733a2f2f692e6c6f6c692e6e65742f323032312f30322f31322f6a4772316e794d5573784b775458682e706e67"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://camo.githubusercontent.com/d00a7d104a6fb740c6c8b58e2e4da61d2d0eb0a8f5609d5c0d549ffbc747dc78/68747470733a2f2f692e6c6f6c692e6e65742f323032312f30322f31322f6a4772316e794d5573784b775458682e706e67" alt="开发者工具"></a></p>
+<h3 id="登出"><a href="#登出" class="headerlink" title="登出"></a>登出</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pxder --logout</span><br></pre></td></tr></table></figure>
+
+<p>仅会删除计算机当前用户储存的 refresh token，在其他计算机或用户上登录的不受影响</p>
+<h3 id="登录态复制"><a href="#登录态复制" class="headerlink" title="登录态复制"></a>登录态复制</h3><p>如果你有一个已经登陆了的 pxder，那么你可以通过以下步骤将登录态复制到另一个 pxder 上</p>
+<ol>
+<li>在已经登录了的设备上执行 <code>pxder --export-token</code>，保存好该 token</li>
+<li>在另一个设备上执行 <code>pxder --login TOKEN</code>，将 <code>TOKEN</code> 替换成上一步输出的 token</li>
+</ol>
+<h3 id="设置"><a href="#设置" class="headerlink" title="设置"></a>设置</h3><p>进入 Pxder 的设置界面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pxder --setting</span><br></pre></td></tr></table></figure>
+
+<p>有六项设置，按下数字键选择一项进行设置</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[1] Download path           # 下载目录，必须设置</span><br><span class="line">[2] Download thread         # 下载线程数</span><br><span class="line">[3] Download timeout        # 下载超时</span><br><span class="line">[4] Auto rename             # 自动重命名（文件夹）</span><br><span class="line">[5] Proxy                   # 使用代理</span><br><span class="line">[6] Direct mode             # 直连模式</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>下载目录</strong><br>请注意相对路径与绝对路径的区别，不过不用担心，输入完路径后会显示绝对路径以方便你检查<br>目录无需手动建立，下载图片的时候会自动建立</p>
+</li>
+<li><p><strong>下载线程数</strong><br>即同时下载的图片数，默认为 <code>5</code>，最小为 <code>1</code>，最大为 <code>32</code><br>下载图片时最左侧的一列实际上就是线程编号</p>
+</li>
+<li><p><strong>下载超时及重试</strong><br>如果这么多秒之后一张图还没被下载完则算作超时，超时后会自动重试，默认值为<code>30</code><br>下载图片时如果线程编号是黄色底的就代表此次是重试<br>重试超过 <code>10</code> 次则视作下载失败</p>
+</li>
+<li><p><strong>自动重命名</strong><br>开启了以后，例如这个画师原来叫 <code>abc</code>，今天你再次去下载（更新）他的画作，但是他改名叫 <code>def</code> 了，那么程序会自动帮你重命名画师文件夹</p>
+</li>
+<li><p><strong>使用代理</strong><br>支持使用 HTTP 或 SOCKS 代理，即可以使用小飞机<br>输入格式为 <code>&lt;协议&gt;://[用户名:密码@]&lt;IP&gt;:&lt;端口&gt;</code>，例如：</p>
+<ul>
+<li><code>http://user:passwd@127.0.0.1:1080</code></li>
+<li><code>socks://127.0.0.1:1080</code>（如果你使用小飞机则直接填这个，除非你改过本地端口）</li>
+</ul>
+<p>如果输入空行则会尝试从环境变量中依次读取 <code>all_proxy</code> <code>https_proxy</code> <code>http_proxy</code>（也包含全大写的环境变量）<br>如果想完全禁止使用代理，请输入 <code>disable</code></p>
+</li>
+<li><p><strong>直连模式</strong><br>利用域前置（Domain Fronting）绕过 SNI 审查，达到直连使用的目的<br>直连模式不能和代理同时使用</p>
+</li>
+</ul>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ul>
+<li>由于历史设计原因，pxder 在大批量下载方面比较无力且容易出错终止（主要受 API 限制），因此不建议使用 pxder 下载数量较大的已收藏作品，比较推荐其他以画师为单位下载的模式</li>
+<li>会将同一画师的作品下载在 <code>(UID)画师名</code> 格式的文件夹内，图片命名格式为 <code>(PID)作品名</code><br>并且，画师名会自动删除名字中 <code>@</code>（包含半角&amp;全角）符号及以后的文字（因为这些基本上都是画师的摊位信息之类的与名字无关的信息）</li>
+<li>文件（夹）名均会过滤掉所有 Windows 和 Linux 中不能或不推荐做文件名的符号</li>
+<li>动图下下来会是所有帧的压缩包，并且会标注 delay 信息<ul>
+<li>例如 <code>xxx@30ms.zip</code> 表示该动图的播放速度为 30ms 一帧</li>
+<li>由于获取动图信息需要额外调用 API，因此如果动图较多将会使得解析时间较长，可以通过<code>-M</code>参数跳过解析</li>
+<li>目前没有自动转 gif / mp4 / webm 的功能，但在计划中，什么时候写看心情</li>
+</ul>
+</li>
+<li>下载时会智能跳过已经下载完成的插画</li>
+<li>下载超时或网络错误会自动重试，重试上限为10次<ul>
+<li>若状态码为 404 则直接放弃下载，这种大多是P站自身原因导致的图片问题</li>
+<li>如果当某一个线程达到重试上限并且此时有不止一个下载线程处于重试状态，程序将视为暂时出现了网络问题，暂停5分钟后会继续重试</li>
+<li>如果只有一个下载线程出现错误，视为不明原因错误，程序将会放弃下载该p并继续运行</li>
+</ul>
+</li>
+<li>抗连接重置，解析时连接重置会自动重试</li>
+</ul>
+<h2 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h2><p>如果需要终止程序，请在命令行中按下 Ctrl C 或者直接关闭命令行窗口</p>
+<p>请不要吐槽为什么在 Windows 下 Ctrl C 后提示的 <code>终止批处理操作吗(Y/N)?</code> 不管是 Y 还是 N 都依然会终止，因为 Node 捕捉到 Ctrl C 就自己终止了，Windows 晚了一步（。</p>
+<p>欲查看完整命令帮助请执行 <code>pxder -h</code></p>
+<h3 id="1-下载或更新某画师的所有插画作品"><a href="#1-下载或更新某画师的所有插画作品" class="headerlink" title="(1) 下载或更新某画师的所有插画作品"></a>(1) 下载或更新某画师的所有插画作品</h3><p>使用 <code>-u</code> 或 <code>--uid</code> 参数，后跟画师的 UID，可单个可多个，如果多个则用英文半角逗号隔开</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pxder -u uid1,uid2,uid3,...</span><br></pre></td></tr></table></figure>
+
+<p>例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pxder -u 5899479,724607,11597411</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-下载或更新你关注的所有画师的所有插画作品"><a href="#2-下载或更新你关注的所有画师的所有插画作品" class="headerlink" title="(2) 下载或更新你关注的所有画师的所有插画作品"></a>(2) 下载或更新你关注的所有画师的所有插画作品</h3><p>该操作同时也会更新已下载的关注画师的作品，并且效率远高于 (3)，比较推荐使用</p>
+<p>会自动排除 pixiv事務局 (uid=<code>11</code>)</p>
+<p>由于收集关注信息需时较久，因此特地针对该功能做了信息缓存：如果你在下载中途退出，那么下次使用该功能时并不需要重新收集，而是利用上次的缓存立即继续下载。</p>
+<ul>
+<li>公开关注与私密关注的缓存是分开的，互不干扰</li>
+<li>如果你需要强制重新收集画师信息（忽略上次的缓存），请在运行命令时加入 <code>--force</code> 参数</li>
+</ul>
+<h4 id="公开关注的画师"><a href="#公开关注的画师" class="headerlink" title="公开关注的画师"></a>公开关注的画师</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pxder -f</span><br><span class="line"># 或</span><br><span class="line">pxder --follow</span><br></pre></td></tr></table></figure>
+
+<h4 id="私密关注的画师"><a href="#私密关注的画师" class="headerlink" title="私密关注的画师"></a>私密关注的画师</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pxder -F</span><br><span class="line"># 或</span><br><span class="line">pxder --follow--private</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-更新已下载的画师的画作"><a href="#3-更新已下载的画师的画作" class="headerlink" title="(3) 更新已下载的画师的画作"></a>(3) 更新已下载的画师的画作</h3><p>会对下载目录中检测到的所有下载过的画师的插画进行增量更新下载</p>
+<p>与 (2) 的区别是可以更新你使用 (1) 下载了的但是未关注的画师的插画，但是效率远低于 (2)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pxder -U</span><br><span class="line"># 或</span><br><span class="line">pxder --update</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-下载或更新你的收藏中的插画作品"><a href="#4-下载或更新你的收藏中的插画作品" class="headerlink" title="(4) 下载或更新你的收藏中的插画作品"></a>(4) 下载或更新你的收藏中的插画作品</h3><h4 id="公开收藏"><a href="#公开收藏" class="headerlink" title="公开收藏"></a>公开收藏</h4><p>插画会被下载至 <code>[bookmark] Public</code> 文件夹中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pxder -b</span><br><span class="line"># 或</span><br><span class="line">pxder --bookmark</span><br></pre></td></tr></table></figure>
+
+<h4 id="私密收藏"><a href="#私密收藏" class="headerlink" title="私密收藏"></a>私密收藏</h4><p>插画会被下载至 <code>[bookmark] Private</code> 文件夹中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">pxder -B</span><br><span class="line"># 或</span><br><span class="line">pxder --bookmark--private</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-根据指定-PID-下载插画"><a href="#5-根据指定-PID-下载插画" class="headerlink" title="(5) 根据指定 PID 下载插画"></a>(5) 根据指定 PID 下载插画</h3><p>插画会被下载至 <code>PID</code> 文件夹中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pxder -p pid1,pid2,pid3,...</span><br></pre></td></tr></table></figure>
+
+<p>例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pxder -p 70593670,70594912,70595516</span><br></pre></td></tr></table></figure>
+
+<h3 id="其他参数说明"><a href="#其他参数说明" class="headerlink" title="其他参数说明"></a>其他参数说明</h3><ul>
+<li><pre><code>-M
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">或</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+--no-ugoira-meta
+</code></pre>
+<p>下载动图时不请求其元数据，在下列情况下会有帮助</p>
+<ol>
+<li>对动图的帧间隔信息无所谓，不请求可以节省大量解析时间</li>
+<li>画师是专门画动图的，几百张动图解析起来实在是慢，并且动图太多可能导致达到 API 调用速率限制</li>
+</ol>
+</li>
+<li><p><code>--no-cf</code><br>从旧的资源域名 <code>i.pximg.net</code> 下载插画，而不是新的套了 CF 的 <code>i-cf.pximg.net</code></p>
+</li>
+<li><p><code>--debug</code><br>出错时输出详细的错误信息，如果你发现了 bug 想要提 issue，请尽量附上加了该参数时的错误日志</p>
+</li>
+<li><p><code>--output-config-dir</code><br>输出 pxder 的配置存放路径</p>
+</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">二蛋</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://blog.hacg.cf/posts/29095/">http://blog.hacg.cf/posts/29095/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://blog.hacg.cf" target="_blank">ONLYONE</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Pixiv/">Pixiv</a></div><div class="post_share"><div class="social-share" data-image="https://tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202016%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202016%E5%B9%B41%E6%9C%88%E5%8F%B7/21.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/posts/11566/"><img class="next-cover" src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B45%E6%9C%88%E5%8F%B7/acg.gy_01.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">rclone教程 – 用法说明（命令、语法格式）</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://f002.backblazeb2.com/file/zhuziz/1421b5f50fBWB4q-modified+(1).png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">二蛋</div><div class="author-info__description">愿世间美好与你环环相扣</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">43</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">45</div></a></div></div><div class="card-info-social-icons is-center"><a class="social-icon" href="mailto:avgo265@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">曾经相遇，总胜过从未碰头</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#pixiv-downloader"><span class="toc-number">1.</span> <span class="toc-text">pixiv downloader</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87"><span class="toc-number">1.1.</span> <span class="toc-text">准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows-Mac"><span class="toc-number">1.1.1.</span> <span class="toc-text">Windows &#x2F; Mac</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux"><span class="toc-number">1.1.2.</span> <span class="toc-text">Linux</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-%E6%9B%B4%E6%96%B0-%E5%8D%B8%E8%BD%BD"><span class="toc-number">1.2.</span> <span class="toc-text">安装&#x2F;更新&#x2F;卸载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-number">1.3.</span> <span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%BD%95"><span class="toc-number">1.3.1.</span> <span class="toc-text">登录</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Windows"><span class="toc-number">1.3.1.1.</span> <span class="toc-text">Windows</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E7%B3%BB%E7%BB%9F"><span class="toc-number">1.3.1.2.</span> <span class="toc-text">其他系统</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%87%BA"><span class="toc-number">1.3.2.</span> <span class="toc-text">登出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%99%BB%E5%BD%95%E6%80%81%E5%A4%8D%E5%88%B6"><span class="toc-number">1.3.3.</span> <span class="toc-text">登录态复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE"><span class="toc-number">1.3.4.</span> <span class="toc-text">设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E"><span class="toc-number">1.4.</span> <span class="toc-text">说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E4%BD%BF%E7%94%A8"><span class="toc-number">1.5.</span> <span class="toc-text">开始使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E4%B8%8B%E8%BD%BD%E6%88%96%E6%9B%B4%E6%96%B0%E6%9F%90%E7%94%BB%E5%B8%88%E7%9A%84%E6%89%80%E6%9C%89%E6%8F%92%E7%94%BB%E4%BD%9C%E5%93%81"><span class="toc-number">1.5.1.</span> <span class="toc-text">(1) 下载或更新某画师的所有插画作品</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E4%B8%8B%E8%BD%BD%E6%88%96%E6%9B%B4%E6%96%B0%E4%BD%A0%E5%85%B3%E6%B3%A8%E7%9A%84%E6%89%80%E6%9C%89%E7%94%BB%E5%B8%88%E7%9A%84%E6%89%80%E6%9C%89%E6%8F%92%E7%94%BB%E4%BD%9C%E5%93%81"><span class="toc-number">1.5.2.</span> <span class="toc-text">(2) 下载或更新你关注的所有画师的所有插画作品</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%AC%E5%BC%80%E5%85%B3%E6%B3%A8%E7%9A%84%E7%94%BB%E5%B8%88"><span class="toc-number">1.5.2.1.</span> <span class="toc-text">公开关注的画师</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%81%E5%AF%86%E5%85%B3%E6%B3%A8%E7%9A%84%E7%94%BB%E5%B8%88"><span class="toc-number">1.5.2.2.</span> <span class="toc-text">私密关注的画师</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%9B%B4%E6%96%B0%E5%B7%B2%E4%B8%8B%E8%BD%BD%E7%9A%84%E7%94%BB%E5%B8%88%E7%9A%84%E7%94%BB%E4%BD%9C"><span class="toc-number">1.5.3.</span> <span class="toc-text">(3) 更新已下载的画师的画作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E4%B8%8B%E8%BD%BD%E6%88%96%E6%9B%B4%E6%96%B0%E4%BD%A0%E7%9A%84%E6%94%B6%E8%97%8F%E4%B8%AD%E7%9A%84%E6%8F%92%E7%94%BB%E4%BD%9C%E5%93%81"><span class="toc-number">1.5.4.</span> <span class="toc-text">(4) 下载或更新你的收藏中的插画作品</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%AC%E5%BC%80%E6%94%B6%E8%97%8F"><span class="toc-number">1.5.4.1.</span> <span class="toc-text">公开收藏</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A7%81%E5%AF%86%E6%94%B6%E8%97%8F"><span class="toc-number">1.5.4.2.</span> <span class="toc-text">私密收藏</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E6%A0%B9%E6%8D%AE%E6%8C%87%E5%AE%9A-PID-%E4%B8%8B%E8%BD%BD%E6%8F%92%E7%94%BB"><span class="toc-number">1.5.5.</span> <span class="toc-text">(5) 根据指定 PID 下载插画</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%8F%82%E6%95%B0%E8%AF%B4%E6%98%8E"><span class="toc-number">1.5.6.</span> <span class="toc-text">其他参数说明</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/posts/29095/" title="Pxder：P站(Pixiv)插画批量下载器"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202016%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202016%E5%B9%B41%E6%9C%88%E5%8F%B7/21.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Pxder：P站(Pixiv)插画批量下载器"/></a><div class="content"><a class="title" href="/posts/29095/" title="Pxder：P站(Pixiv)插画批量下载器">Pxder：P站(Pixiv)插画批量下载器</a><time datetime="2022-02-06T08:21:13.216Z" title="发表于 2022-02-06 16:21:13">2022-02-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/11566/" title="rclone教程 – 用法说明（命令、语法格式）"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B45%E6%9C%88%E5%8F%B7/acg.gy_01.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="rclone教程 – 用法说明（命令、语法格式）"/></a><div class="content"><a class="title" href="/posts/11566/" title="rclone教程 – 用法说明（命令、语法格式）">rclone教程 – 用法说明（命令、语法格式）</a><time datetime="2022-01-31T04:49:20.534Z" title="发表于 2022-01-31 12:49:20">2022-01-31</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/29839/" title="白嫖Okteto4核26G服务器"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202020%E5%B9%B47%E6%9C%88%E5%8F%B7/acg.gy_24.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="白嫖Okteto4核26G服务器"/></a><div class="content"><a class="title" href="/posts/29839/" title="白嫖Okteto4核26G服务器">白嫖Okteto4核26G服务器</a><time datetime="2022-01-23T07:05:08.350Z" title="发表于 2022-01-23 15:05:08">2022-01-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/27817/" title="分享两个正版免费的Microsoft365企业订阅"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B45%E6%9C%88%E5%8F%B7/acg.gy_08.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="分享两个正版免费的Microsoft365企业订阅"/></a><div class="content"><a class="title" href="/posts/27817/" title="分享两个正版免费的Microsoft365企业订阅">分享两个正版免费的Microsoft365企业订阅</a><time datetime="2022-01-22T07:25:58.948Z" title="发表于 2022-01-22 15:25:58">2022-01-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/posts/25781/" title="目录列表程序AList使用教程"><img src= "data:image/gif;base64,R0lGODdhAQABAPAAAMPDwwAAACwAAAAAAQABAAACAkQBADs=" data-lazy-src="https://i.sevencdn.com/tu.oneds.workers.dev/%E5%9B%BE%E5%BA%8A/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%9B%BE%E5%8C%85/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B4/%E7%90%89%E7%92%83%E7%A5%9E%E7%A4%BE%E5%A3%81%E7%BA%B8%E5%8C%85%202021%E5%B9%B46%E6%9C%88%E5%8F%B7/acg.gy_01.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="目录列表程序AList使用教程"/></a><div class="content"><a class="title" href="/posts/25781/" title="目录列表程序AList使用教程">目录列表程序AList使用教程</a><time datetime="2022-01-06T11:38:47.544Z" title="发表于 2022-01-06 19:38:47">2022-01-06</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By 二蛋</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><div class="js-pjax"><script async="async">var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> {preloader.endLoading()})
+setTimeout(function(){preloader.endLoading();}, 3000);</script></div><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'gD1fw0hsoMOCmD2Hu6j5XbEb-gzGzoHsz',
+      appKey: 'ouAou6Jj84AxPzB1XbpM8iI3',
+      placeholder: '',
+      avatar: 'monsterid',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+      requiredFields: ["nick,mail"],
+      visitor: false
+    }, null))
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script defer src="https://cdn.jsdelivr.net/gh/graingert/wow@1.3.0/dist/wow.min.js"></script><script defer data-pjax src="/js/wow_init.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
