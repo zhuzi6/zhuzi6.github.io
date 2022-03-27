@@ -4272,4 +4272,68 @@
         <tag>Pixiv</tag>
       </tags>
   </entry>
+  <entry>
+    <title>EMBY挂载Google Drive 系统建议Ubuntu 18.04</title>
+    <url>/posts/40/</url>
+    <content><![CDATA[<p>建议1.7G以上内存，20G以上存储空间 Ubuntu 18.04</p>
+<p><strong>1、安装rclone挂载工具</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl https://rclone.org/install.sh | sudo bash</span><br></pre></td></tr></table></figure>
+
+<p><strong>2、配置rclone</strong>，命名：emby</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">rclone config</span><br></pre></td></tr></table></figure>
+
+<p><strong>3、挂载到文件夹</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">mkdir -p /home/gdrive</span><br><span class="line">/usr/bin/rclone mount emby: /home/gdrive \</span><br><span class="line"> --umask 0000 \</span><br><span class="line"> --default-permissions \</span><br><span class="line"> --allow-non-empty \</span><br><span class="line"> --allow-other \</span><br><span class="line"> --buffer-size 32M \</span><br><span class="line"> --dir-cache-time 12h \</span><br><span class="line"> --vfs-read-chunk-size 64M \</span><br><span class="line"> --vfs-read-chunk-size-limit 1G &amp;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<p>取消挂载 <code>fusermount -qzu /home/gdrive2/</code> 然后再<code>rclone config</code>里面删除对应的命名<br>安装<code>apt-get install fuse</code>避免下面无法挂载</p>
+<p>下面这是我挂载webdav的</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/usr/bin/rclone mount teracloud: /home/teracloud \</span><br></pre></td></tr></table></figure>
+
+<p><strong>4、查看挂载</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">df -h</span><br></pre></td></tr></table></figure>
+
+<p><strong>5、自动挂载</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cat &gt; /etc/systemd/system/rclone.service &lt;&lt;EOF</span><br><span class="line">[Unit]</span><br><span class="line">Description=Rclone</span><br><span class="line">AssertPathIsDirectory=LocalFolder</span><br><span class="line">After=network-online.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=simple</span><br><span class="line">ExecStart=/usr/bin/rclone mount emby: /home/gdrive \</span><br><span class="line"> --umask 0000 \</span><br><span class="line"> --default-permissions \</span><br><span class="line"> --allow-non-empty \</span><br><span class="line"> --allow-other \</span><br><span class="line"> --buffer-size 32M \</span><br><span class="line"> --dir-cache-time 12h \</span><br><span class="line"> --vfs-read-chunk-size 64M \</span><br><span class="line"> --vfs-read-chunk-size-limit 1G</span><br><span class="line">ExecStop=/bin/fusermount -u LocalFolder</span><br><span class="line">Restart=on-abort</span><br><span class="line">User=root</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">WantedBy=default.target</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p><strong>6、设置启动</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl start rclone</span><br></pre></td></tr></table></figure>
+
+<p><strong>7、开启启动</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">systemctl enable rclone</span><br></pre></td></tr></table></figure>
+
+<p><strong>8、安装bbrplus</strong> （已安装可以忽略）</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wget -N --no-check-certificate &quot;https://raw.githubusercontent.com/chiakge/Linux-NetSpeed/master/tcp.sh&quot; &amp;&amp; chmod +x tcp.sh &amp;&amp; ./tcp.sh</span><br></pre></td></tr></table></figure>
+
+<p><strong>9、虚拟内存</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wget https://www.moerats.com/usr/shell/swap.sh &amp;&amp; bash swap.sh</span><br></pre></td></tr></table></figure>
+
+<p>(如果debian9无法创建，请参考CSDN<a href="https://blog.csdn.net/zhangpeterx/article/details/90230063?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase">debian 9/ ubuntu 添加swap分区</a>)</p>
+<p><strong>10、安装emby</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wget https://github.com/MediaBrowser/Emby.Releases/releases/download/4.4.3.0/emby-server-deb_4.4.3.0_amd64.deb</span><br><span class="line">dpkg -i emby-server-deb_4.4.3.0_amd64.deb</span><br></pre></td></tr></table></figure>
+
+<p><em>[解决oracle无法访问的问题]：</em></p>
+<p>Oracle云免费机，安装完可能会出现浏览器打开没反应，原因是端口未开放。<br>开放所有端口如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo iptables -P INPUT ACCEPT</span><br><span class="line">sudo iptables -P FORWARD ACCEPT</span><br><span class="line">sudo iptables -P OUTPUT ACCEPT</span><br><span class="line">sudo iptables -F</span><br><span class="line">apt-get purge netfilter-persistent</span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+
+<p>安装完毕访问域名+端口号（默认8096）</p>
+<p><strong>管理命令</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">service emby-server start|stop|status</span><br></pre></td></tr></table></figure>
+
+<p><strong>彻底卸载</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt-get remove --purge emby-server</span><br></pre></td></tr></table></figure>
+
+<p><strong>备份</strong></p>
+<p>将 <code>/var/lib/emby</code> 下的文件打包然后上传到新的地址安装的emby下即可。</p>
+<p><strong>查看emby刮削日志</strong><br><code>tail -fn 10 /var/lib/emby/logs/embyserver.txt</code></p>
+<p>以上。</p>
+]]></content>
+      <tags>
+        <tag>EMBY</tag>
+      </tags>
+  </entry>
 </search>
