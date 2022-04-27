@@ -255,6 +255,7 @@
 <p><img src="https://ttc.cxbc.xyz/images/2020/09/13/hj4A.png" alt="img"></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Google Drive API</span><br><span class="line"></span><br><span class="line">Identity and Access Management (IAM) API</span><br><span class="line"></span><br><span class="line">Service Usage API</span><br><span class="line"></span><br><span class="line">Cloud Resource Manager API</span><br><span class="line"></span><br><span class="line">IAM Service Account Credentials API</span><br></pre></td></tr></table></figure>
 
+
 <p><img src="https://ttc.cxbc.xyz/images/2020/09/13/h2x5.png" alt="img"></p>
 <p>开始搭建</p>
 <blockquote>
@@ -265,6 +266,7 @@
 
 <p>Debian、Ubuntu</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">apt-get update &amp;&amp; apt-get upgrade -y</span><br><span class="line"></span><br><span class="line">apt-get install wget curl python3 python3-pip git unzip screen sudo fuse -y</span><br></pre></td></tr></table></figure>
+
 
 <p>安装完成后，试试输入 <code>python</code> 或者 <code>python3</code> 看看有没有反应，如果有说明 <code>python</code> 配置正确，请继续下一步；如果没有，请自行配置 <code>python</code> 环境</p>
 <hr>
@@ -279,8 +281,10 @@
 <p>Ubuntu</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -</span><br><span class="line"></span><br><span class="line">apt-get install -y nodejs</span><br></pre></td></tr></table></figure>
 
+
 <p>安装好 <code>Node.js</code> 之后，检验一下，输入 <code>node -v</code> 代码，如果有输出且输出的是 <code>node</code> 的版本号，则表示 <code>node</code> 配置正确</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">node -v</span><br><span class="line"></span><br><span class="line">v12.18.3</span><br></pre></td></tr></table></figure>
+
 
 <p>安装 <code>Node</code> 参考：<a href="https://github.com/nodesource/distributions/blob/master/README.md#debinstall">https://github.com/nodesource/distributions/blob/master/README.md#debinstall</a></p>
 <blockquote>
@@ -291,6 +295,7 @@
 
 <p>Debian、Ubuntu</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">sudo apt-get install screen git &amp;&amp; curl https://rclone.org/install.sh | sudo bash</span><br><span class="line"></span><br><span class="line">sudo git clone https://github.com/xyou365/AutoRclone &amp;&amp; cd AutoRclone &amp;&amp; sudo pip3 install -r requirements.txt</span><br></pre></td></tr></table></figure>
+
 
 <p>进入到 <code>AutoRclone</code> 目录，将我们在谷歌网页创建项目时下载的 <code>**credentials.json**</code> 文件上传到 <code>AutoRclone</code> 文件夹里面</p>
 <p><img src="https://ttc.cxbc.xyz/images/2020/09/13/hIrD.png" alt="img"></p>
@@ -370,6 +375,7 @@
 <p>执行代码检测</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd &amp;&amp; cd /root/gd-utils</span><br><span class="line"></span><br><span class="line">./validate-sa.js 你的谷歌云盘ID</span><br></pre></td></tr></table></figure>
 
+
 <p><img src="https://ttc.cxbc.xyz/images/2020/09/13/hJG4.png" alt="img"></p>
 <p>谷歌云盘 <code>ID</code> 要选择你添加<code>sa</code>所在的云盘 <code>ID</code>，程序会读取 <code>sa</code> 目录下所有 <code>json</code> 文件，依次检查它们是否拥有对你的目录云盘 <code>ID</code> 的阅读权限；如果最后发现了无效的 <code>sa</code> ，程序会提供选项让用户选择，出现下面的提示则说明 <code>sa</code> 都有权限</p>
 <p><img src="https://ttc.cxbc.xyz/images/2020/09/13/hXY9.png" alt="img"></p>
@@ -404,6 +410,7 @@
 <p>然后将以下信息记录下来</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[gd]</span><br><span class="line">type = drive</span><br><span class="line">client_id = 959724asinf35vl.apps.googleusercontent.com</span><br><span class="line">client_secret = V7Rz-b6iZ7bUoXiF</span><br><span class="line">scope = drive</span><br><span class="line">token = &#123;&quot;access_token&quot;:&quot;ya29.a0AfH6SMDy-hDacbkL8w3DaT_dhrZeVjGEtfb8KmZ9Xg4S7ECLNKRJ_HYU0ndWngegJR7PcgktASdPaDsupEmqweDBoZXCtRmzIclB4EMxS5KAB99yHny_IeusrcaVVAgQG2v2R59CdWfnw&quot;,&quot;token_type&quot;:&quot;Bearer&quot;,&quot;refresh_token&quot;:&quot;1//0dQ_xB5KS9KejCgYIARAAGA0SNwF-L9IruF5Fg4pB8vwF2UOFeIrq1AiBEs&quot;,&quot;expiry&quot;:&quot;2020-08-22T03:51:25.629822745-07:00&quot;&#125;</span><br><span class="line">team_drive = 0AL5v92JLPVA</span><br></pre></td></tr></table></figure>
 
+
 <p>其中 <code>client_id</code> 和 <code>client_secret</code> 是客户端的 <code>ID</code> 和密钥</p>
 <p><code>token</code> 是 <code>rclone</code> 连接云盘生成的值，这个值我们只取 <code>refresh_toke</code> 这一部分，即 <code>1//</code> 后面的内容，类似于这样</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">1//0dQ_xB5KS9KejCgYIARAAGA0SNwF-L9IruF5Fg4pB8vwF2UOFeIrq1AiBEs</span><br><span class="line">team_drive` 是团队盘的 `ID</span><br></pre></td></tr></table></figure>
@@ -424,6 +431,7 @@
 <p>宝塔安装完成后，点击宝塔左边软件商店，搜索 <strong>PM2</strong> 和 <strong>Nginx</strong> 这两个软件安装，安装完成后，这个时候建议重启一下服务器，重启之后运行代码；而且每次重启后都要运行一次代码</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd &amp;&amp; cd /root/gd-utils</span><br><span class="line"></span><br><span class="line">pm2 start server.js --node-args=&quot;--max-old-space-size=1024&quot;</span><br></pre></td></tr></table></figure>
 
+
 <p>然后进入宝塔在已安装的软件中找到 <code>PM2</code> 管理器，查看一下是否有任务运行；如果有任务运行直接添加站点，如果没有则手动添加任务，手动添加方法如下；最后记住一定要开放 23333 端口</p>
 <p><img src="https://ttc.cxbc.xyz/images/2020/09/20/42zT.png" alt="img"></p>
 <p>手动添加 <code>PM2</code> 任务</p>
@@ -442,11 +450,13 @@
 <p>回到SSH，执行下面代码以命令行的形式检查网站是否部署成功；代码一定要检查清楚，网址不能多 <code>/</code> ，字符不能少，请严格参考示例</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd &amp;&amp; cd /root/gd-utils</span><br><span class="line">curl &#x27;YOUR_WEBSITE_URL/api/gdurl/count?fid=124pjM5LggSuwI1n40bcD5tQ13wS0M6wg&#x27;</span><br><span class="line">示例</span><br><span class="line">curl &#x27;https://bot.54215.tk/api/gdurl/count?fid=124pjM5LggSuwI1n40bcD5tQ13wS0M6wg&#x27;</span><br><span class="line"></span><br><span class="line">如果返回了gd-utils 成功启动的消息，说明部署成功了</span><br></pre></td></tr></table></figure>
 
+
 <p>在命令行执行（请将 <code>YOUR_WEBSITE</code> 和 <code>YOUR_BOT_TOKEN</code> 分别替换成你自己的网址和 <code>bot token</code>），将你的服务器连接上你的 <code>telegram bot</code></p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">curl -F &quot;url=YOUR_WEBSITE/api/gdurl/tgbot&quot; &#x27;https://api.telegram.org/botYOUR_BOT_TOKEN/setWebhook&#x27;</span><br><span class="line">示例</span><br><span class="line">curl -F &quot;url=https://bot.54215.tk/api/gdurl/tgbot&quot; &#x27;https://api.telegram.org/bot1240808718:AAHupIg5gpMrMiDmGSh5b5-nlqi5uRvXQTw/setWebhook&#x27;</span><br></pre></td></tr></table></figure>
 
 <p>如果返回 <code>&#123;&quot;ok&quot;:true,&quot;result&quot;:true,&quot;description&quot;:&quot;Webhook was set&quot;&#125;</code> ，则说明你的服务器连接上你的 <code>telegram bot</code> 了，给自己的电报机器人发送 <code>/help</code>，如果它回复给你 <strong>使用帮助</strong>，那就配置成功了</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">注意：给机器人发送消息时，一般立刻就会回复信息，如果没有回复信息，可能会有延迟请稍等几分钟，或者重启一下服务器在试，如果还不行，请检查配置</span><br></pre></td></tr></table></figure>
+
 
 <p><img src="https://ttc.cxbc.xyz/images/2020/09/13/h0t5.png" alt="img"></p>
 <p>这个时候，我们向机器人发送一条谷歌云盘的分享链接，机器人会识别这个链接，提示我们选择动作，点击复制它会立刻开始复制到我们设置的云盘里</p>
@@ -599,7 +609,7 @@
 <h3 id="2-3-配置SMTP"><a href="#2-3-配置SMTP" class="headerlink" title="2.3 配置SMTP"></a><strong>2.3 配置SMTP</strong></h3><p>邮件提醒会使某些功能有更好的用户体验, 比如发送邮件提醒用户新消息到达. 请在<code>seahub_settings.py</code>中加入以下语句以开启邮件提醒功能 (同时需要对你的邮箱进行设置).</p>
 <p>EMAIL_USE_TLS = <strong>False</strong></p>
 <p>EMAIL_HOST = ‘<a href="http://smtp.domain.com/">smtp.domain.com</a>‘        # smpt 服务器</p>
-<p>EMAIL_HOST_USER = ‘<a href="mailto:&#117;&#x73;&#101;&#x72;&#x6e;&#x61;&#109;&#101;&#64;&#x64;&#x6f;&#x6d;&#x61;&#x69;&#110;&#46;&#99;&#111;&#109;">&#117;&#x73;&#101;&#x72;&#x6e;&#x61;&#109;&#101;&#64;&#x64;&#x6f;&#x6d;&#x61;&#x69;&#110;&#46;&#99;&#111;&#109;</a>‘    # 用户名和域名</p>
+<p>EMAIL_HOST_USER = ‘<a href="mailto:&#x75;&#x73;&#101;&#x72;&#110;&#x61;&#109;&#x65;&#64;&#x64;&#111;&#x6d;&#x61;&#105;&#110;&#x2e;&#99;&#111;&#109;">&#x75;&#x73;&#101;&#x72;&#110;&#x61;&#109;&#x65;&#64;&#x64;&#111;&#x6d;&#x61;&#105;&#110;&#x2e;&#99;&#111;&#109;</a>‘    # 用户名和域名</p>
 <p>EMAIL_HOST_PASSWORD = ‘password’    # 密码</p>
 <p>EMAIL_PORT = ‘25’</p>
 <p>DEFAULT_FROM_EMAIL = EMAIL_HOST_USER</p>
@@ -607,7 +617,7 @@
 <p>Gmail 邮箱示例:</p>
 <p>EMAIL_USE_TLS = <strong>True</strong></p>
 <p>EMAIL_HOST = ‘<a href="http://smtp.gmail.com/">smtp.gmail.com</a>‘</p>
-<p>EMAIL_HOST_USER = ‘<a href="mailto:&#x75;&#x73;&#101;&#x72;&#110;&#x61;&#x6d;&#x65;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;">&#x75;&#x73;&#101;&#x72;&#110;&#x61;&#x6d;&#x65;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#46;&#x63;&#x6f;&#109;</a>‘</p>
+<p>EMAIL_HOST_USER = ‘<a href="mailto:&#x75;&#x73;&#101;&#114;&#x6e;&#x61;&#x6d;&#x65;&#64;&#x67;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#x75;&#x73;&#101;&#114;&#x6e;&#x61;&#x6d;&#x65;&#64;&#x67;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a>‘</p>
 <p>EMAIL_HOST_PASSWORD = ‘password’</p>
 <p>EMAIL_PORT = ‘587’</p>
 <p>DEFAULT_FROM_EMAIL = EMAIL_HOST_USER</p>
