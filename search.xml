@@ -4407,4 +4407,243 @@
         <tag>离线下载</tag>
       </tags>
   </entry>
+  <entry>
+    <title>多功能机器人ARPT搭建</title>
+    <url>/posts/54280/</url>
+    <content><![CDATA[<h1 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h1><p>一个基于Python3的Bot。目前支持以Docker的方式部署在vps上。</p>
+<p><a href="https://github.com/666wcy/ARPT-Bot"><img src="https://camo.githubusercontent.com/f39afc7f83f3469a3ad8264500d023dc9e152252472c90f8aad7a59b2f9b35da/68747470733a2f2f6769746875622d726561646d652d73746174732e76657263656c2e6170702f6170692f70696e2f3f757365726e616d653d363636776379267265706f3d415250542d426f74" alt="Readme Card"></a></p>
+<p>主要功能:</p>
+<ul>
+<li> 文件管理</li>
+<li> 修改主界面为 <a href="https://github.com/filebrowser/filebrowser">filebrowser</a>，账号为<strong>admin</strong>，密码为你设定的<code>Aria2_secret</code>,主界面路径：<a href="http://ip:port,请自行修改密码/">http://ip:port,请自行修改密码</a></li>
+<li> 网页面板</li>
+<li> 支持 <a href="https://github.com/mayswind/AriaNg">AriaNg</a> 面板,地址为：<a href="https://ip:port/ng/">https://ip:port/ng/</a></li>
+<li> 用<strong>Nginx</strong>为内部端口反代，替换原来的的Python Flask，更加轻量</li>
+<li> 支持<a href="https://github.com/ElonH/RcloneNg">RcloneNg</a>，登录时地址为<code>http://ip:port</code>,请自行修改<code>ip</code>和<code>port</code>，用户名为root,密码为你设定的<code>Aria2_secret</code></li>
+<li> Aria2</li>
+<li> 自动化安装Aria2，自定义密钥</li>
+<li> 用Bot进行简单的Aria2端控制(添加任务、暂停任务、删除任务)</li>
+<li> 支持批量添加任务</li>
+<li> 显示下载进度</li>
+<li> 任务完成后通过rclone上传(<strong>显示上传进度</strong>)，最新版rclone已支持世纪互联</li>
+<li> 支持aria2面板类工具rpc连接(get、post方式)</li>
+<li> 支持自动上传面板类工具rpc连接添加的任务自动上传(不显示进度)。通过面板添加的任务上传方式更改为P大的上传脚本，保持原有路径。</li>
+<li> 采用P大的配置，自动添加tracker。</li>
+<li> 下载OneDrive、sharepoint公开分享链接中的文件，保持文件路径推送到Aria2.已实现。采用项目地址：<a href="https://github.com/gaowanliang/OneDriveShareLinkPushAria2">OneDriveShareLinkPushAria2</a></li>
+<li> Rss自动下载，已有成品，尚未对接</li>
+<li> Rclone</li>
+<li> rclone官方lsd，lsf方法的适配</li>
+<li> rclone copy的适配，即双盘互传，支持查看传输进度</li>
+<li> rclone copyurl方式上传文件，实时显示进度</li>
+<li> 支持aria2面板类工具rpc连接(get、post方式)</li>
+<li> TG按键式查看rclone目录</li>
+<li> 将当前目录文件命名为emby扫描格式</li>
+<li> 通过Bot添加rclone配置、清空rclone配置</li>
+<li> 获取单个或多个文件夹的分享链接(gd,od)</li>
+<li> Pixiv</li>
+<li> 根据pid获取图片</li>
+<li> 下载画师的全部作品，支持打包上传网盘、打包发送tg、图片方式发送tg、telegraph(网页)方式发送图片。打包格式为zip。</li>
+<li> 下载日榜，周榜、月榜，支持打包上传网盘、打包发送tg、图片方式发送tg、telegraph(网页)方式发送图片。打包格式为zip。</li>
+<li> 支持指定日期的榜单下载</li>
+<li> 影音相关</li>
+<li> 使用YouTube-dl下载视频，支持上传网盘或发送到tg。默认最高画质，目前完美适配YouTube和哔哩哔哩(不含番剧)</li>
+<li> 网易云音乐下载，支持id下载，搜索下载，整个歌单下载，支持发送到tg和上传网盘</li>
+<li> 新增将视频转为MP3格式发送、上传</li>
+<li> 视频与字幕混流</li>
+<li> 常用影音格式格式互转</li>
+<li> Telegram</li>
+<li> 只有当前用户的命令生效</li>
+<li> 发送file id获取文件</li>
+<li> 发送文件获取file id</li>
+<li> 发送TG文件上传到网盘</li>
+<li> 支持命令查看Bot运行时间和剩余空间</li>
+<li> 支持群组内使用。Ps:已有群组版本，正在考虑如何混合适配</li>
+<li> 添加Bot白名单</li>
+<li> 图片相关</li>
+<li> 合并<a href="https://github.com/666wcy/search_photo-telegram-bot-heroku">搜图机器人</a>，支持<a href="https://saucenao.com/">saucenao</a>、<a href="https://trace.moe/">WhatAnime</a>、<a href="https://ascii2d.net/">ascii2d</a>、<a href="http://www.iqdb.org/">iqdb</a></li>
+<li> 搜索下载哔咔的本子，支持ZIP文件格式发送到TG和上传网盘</li>
+<li> 对接 <a href="https://github.com/RicterZ/nhentai">nhentai</a>,下载nhentai本子并支持以ZIP文件格式发送TG、ZIP格式上传网盘、网页格式发送到TG</li>
+<li> 本子的搜索，支持哔咔、ehentai、nhentai</li>
+<li> saucenao搜图支持快捷搜索</li>
+</ul>
+<h1 id="Bot-command"><a href="#Bot-command" class="headerlink" title="Bot command"></a>Bot command</h1><p>通过在 <strong>@BotFather</strong> 设置命令</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">start - 查看Bot状态</span><br><span class="line">help - 获取Bot的使用帮助</span><br><span class="line">pixivauthor - 对pixiv画师作品操作</span><br><span class="line">pixivtopall - 对pixiv排行榜进行操作</span><br><span class="line">pixivtopillust - 对插画排行榜进行操作</span><br><span class="line">pixivpid - 发送pixiv该id的图片</span><br><span class="line">magfile - 推送种子文件至aria2下载后上传至网盘</span><br><span class="line">mirror - 推送直链至aria2下载上传至网盘</span><br><span class="line">mirrortg - 推送直链至aria2下载发送到TG</span><br><span class="line">magnet - 推送磁力链接至aria2下载后上传至网盘</span><br><span class="line">downtgfile - 发送TG文件并上传至网盘</span><br><span class="line">rclonecopy - 用rclone在网盘间传输</span><br><span class="line">rclonelsd - 用rclone显示网盘文件夹</span><br><span class="line">rclone - 用rclone显示文件夹内详细信息</span><br><span class="line">rclonecopyurl - 用rclonecopyurl的方式直接上传直链文件</span><br><span class="line">getfileid - 发送文件获取fileid</span><br><span class="line">getfile - 发送fileid来获取文件</span><br><span class="line">video - 发送视频链接</span><br><span class="line">neteaseid - 通过id获取歌曲信息</span><br><span class="line">searchsong - 搜索网易云音乐歌曲</span><br><span class="line">playlist - 获取歌单信息</span><br><span class="line">odshare - 下载公开的od、sp分享链接文件并上传网盘</span><br><span class="line">odprivate - 下载域内的od、sp分享链接上传到网盘</span><br><span class="line">nhentai - 下载nhentai中对应id的本子</span><br><span class="line">ehentai - 下载nhentai中对应id的本子</span><br><span class="line">picacgsearch - 在哔咔中搜索本子，支持ZIP上传到网盘和发送到TG</span><br><span class="line">ehentaisearch - 在ehentai中搜索本子，支持ZIP上传到网盘和发送到TG、发送网页</span><br><span class="line">nhentaisearch - 在nhentai中搜索本子，支持ZIP上传到网盘和发送到TG、发送网页</span><br></pre></td></tr></table></figure>
+
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><p>Docker 部署命令：</p>
+<p><del>评论区反馈docker不支持arm架构，推测原因为原docker为amd64架构,目前只在amd64上测试成功</del> 目前理论支持所含架构，具体没有进行真机测试</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line">    --name arpt \</span><br><span class="line">    -e Api_hash=xxx \</span><br><span class="line">    -e Api_id=xxx \</span><br><span class="line">    -e Aria2_secret=xxx \</span><br><span class="line">    -e Remote=yun \</span><br><span class="line">    -e Telegram_bot_api=xxx \</span><br><span class="line">    -e Telegram_user_id=xxx \</span><br><span class="line">    -e Upload=xxx \</span><br><span class="line">    -e Rclone_share=False \</span><br><span class="line">    -e Error_user_info=&quot;你没有使用权限&quot; \</span><br><span class="line">    -p 8868:8868 \</span><br><span class="line">   benchao/arpt:v2.0.8</span><br></pre></td></tr></table></figure>
+
+<p>配置解释</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Api_hash Api_id 这两项在https://my.telegram.org中注册应用后得到</span><br><span class="line"></span><br><span class="line">Aria2_secret    Aria2的密匙</span><br><span class="line"></span><br><span class="line">Telegram_bot_api    Bot的API，在@BotFather申请获得</span><br><span class="line"></span><br><span class="line">Telegram_user_id    使用者的TG id，可在@userinfobot处获得，设置为群组ID则该群组所有人员可用，需要设置Bot的群组权限</span><br><span class="line"></span><br><span class="line">Remote  上传目的地的rclone盘符</span><br><span class="line"></span><br><span class="line">Upload  上传文件夹名称，后面不需要加/</span><br><span class="line"></span><br><span class="line">Rclone_share 可不填，True 为上传网盘后返回分享链接(onedrive)，False 为关闭该功能，不设置该变量则默认关闭</span><br><span class="line"></span><br><span class="line">Error_user_info 可不填，可设置非允许使用者发送消息时的提示，不设置该变量则使用默认语句</span><br></pre></td></tr></table></figure>
+
+<p>在Docker运行后访问ip:port访问文件管理器，<del>在/.config/rclone下文件夹新建rclone.conf,粘贴自己的rclone配置。</del> PS:有人反馈此处配置不成功，可尝试在/root/.config/rclone也添加配置，bot运行 <strong>/rclone 盘符:</strong> ，可以查看是否成功 关于上传方法，将.conf文件拖入浏览器即可。</p>
+<p><a href="https://camo.githubusercontent.com/7aee7c436bd8c9d8944d299f0bb1841707fe3c3f31b3103e78be37760e567d7c/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f3636367763792f696d675f7368617265406d61696e2f696d672f696d6167652e3261627336353671797262342e706e67"><img src="https://camo.githubusercontent.com/7aee7c436bd8c9d8944d299f0bb1841707fe3c3f31b3103e78be37760e567d7c/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f3636367763792f696d675f7368617265406d61696e2f696d672f696d6167652e3261627336353671797262342e706e67" alt="成功效果"></a></p>
+<p>Docker目前不支持自动更新，目前更新需要自行重装新镜像版本</p>
+<p>可自行查看最新镜像版本号：<a href="https://hub.docker.com/repository/docker/benchao/arpt">查看地址</a></p>
+<h1 id="杂项说明"><a href="#杂项说明" class="headerlink" title="杂项说明"></a>杂项说明</h1><p>关于在面板配置Aria2的设置，ip为vps端口，端口为docker设定的端口 举例,若docker中命令为 <code>-p 8868:8868 \</code> 则端口为8868 面板密钥填docker创建时你的Aria2_secret值</p>
+<h1 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h1><p><a href="https://camo.githubusercontent.com/6cc601a1032d7cd19c97598d903fce816312c97d2ceb7dc04b3a4f2256499ccf/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f3636367763792f696d675f7368617265406d61696e2f696d672f626f742545342542382538422545382542442542442545372541372538442545352541442539302e3530317063796d3933346b302e706e67"><img src="https://camo.githubusercontent.com/6cc601a1032d7cd19c97598d903fce816312c97d2ceb7dc04b3a4f2256499ccf/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f3636367763792f696d675f7368617265406d61696e2f696d672f626f742545342542382538422545382542442542442545372541372538442545352541442539302e3530317063796d3933346b302e706e67" alt="img"></a></p>
+<p><a href="https://camo.githubusercontent.com/d2f7185c3e8921b9436239e79b5efa73c55ef83475ea588378a0a9376f860f0d/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f3636367763792f696d675f7368617265406d61696e2f696d672f696d6167652e327a783379743266386f77302e706e67"><img src="https://camo.githubusercontent.com/d2f7185c3e8921b9436239e79b5efa73c55ef83475ea588378a0a9376f860f0d/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f3636367763792f696d675f7368617265406d61696e2f696d672f696d6167652e327a783379743266386f77302e706e67" alt="img"></a></p>
+<p><a href="https://camo.githubusercontent.com/98f6f409abb2cb3ba339ec0663012eea2181ec278b8037dfc7e1c058b382127b/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f3636367763792f696d675f7368617265406d61696e2f696d672f696d6167652e35326a623167776c76346f302e706e67"><img src="https://camo.githubusercontent.com/98f6f409abb2cb3ba339ec0663012eea2181ec278b8037dfc7e1c058b382127b/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f3636367763792f696d675f7368617265406d61696e2f696d672f696d6167652e35326a623167776c76346f302e706e67" alt="img"></a></p>
+<p><a href="https://camo.githubusercontent.com/d0d7fd35809865cb3e8f1e64727fca6ff7e10b02fea82c912ad74322372e0e2c/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f3636367763792f696d675f7368617265406d61696e2f696d672f626f742545382541372538362545392541322539312545342542382538422545382542442542442e3762316172756273716130302e706e67"><img src="https://camo.githubusercontent.com/d0d7fd35809865cb3e8f1e64727fca6ff7e10b02fea82c912ad74322372e0e2c/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f3636367763792f696d675f7368617265406d61696e2f696d672f626f742545382541372538362545392541322539312545342542382538422545382542442542442e3762316172756273716130302e706e67" alt="img"></a></p>
+<p><a href="https://camo.githubusercontent.com/37bdc91af8a55816614e0a898487ddc995d3542606dc9e3a4344a36a34c073ca/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f3636367763792f696d675f7368617265406d61696e2f696d672f626f742545362539362538372545342542422542362545342542382538422545382542442542442e33323774696e736c776130302e706e67"><img src="https://camo.githubusercontent.com/37bdc91af8a55816614e0a898487ddc995d3542606dc9e3a4344a36a34c073ca/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f3636367763792f696d675f7368617265406d61696e2f696d672f626f742545362539362538372545342542422542362545342542382538422545382542442542442e33323774696e736c776130302e706e67" alt="img"></a></p>
+<p><a href="https://camo.githubusercontent.com/3ee2537520abdf7bc5a916eddad332c628953d9d2b28103e0cdea62d11a1f26a/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f3636367763792f696d675f7368617265406d61696e2f696d672f696d6167652e3737316e31746b61396467302e706e67"><img src="https://camo.githubusercontent.com/3ee2537520abdf7bc5a916eddad332c628953d9d2b28103e0cdea62d11a1f26a/68747470733a2f2f63646e2e6a7364656c6976722e6e65742f67682f3636367763792f696d675f7368617265406d61696e2f696d672f696d6167652e3737316e31746b61396467302e706e67" alt="img"></a></p>
+]]></content>
+      <tags>
+        <tag>下载</tag>
+        <tag>Telegram</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>全网热门公共 BitTorrent Tracker 列表每天更新</title>
+    <url>/posts/48040/</url>
+    <content><![CDATA[<p>每天更新！全网热门 BitTorrent Tracker 列表！<strong>觉得好用请点个<a href="https://github.com/XIU2/TrackersListCollection/stargazers">⭐</a> 鼓励一下叭~</strong></p>
+<p>本项目整合了全网热门 Tracker，经过筛选过滤，最终得到了一个优质的 Tracker 列表方便大家使用~</p>
+<blockquote>
+<p>「<a href="https://github.com/XIU2/TrackersListCollection/#readme">English</a>」(Visitors at <a href="https://trackerslist.com/">trackerslist.com</a>, please switch languages via the top right corner↗)</p>
+</blockquote>
+<blockquote>
+<p><em>分享我其他开源项目：<a href="https://github.com/XIU2/UserScript">Github 高速下载、知乎增强、自动无缝翻页、护眼模式 等<strong>油猴脚本</strong>！</a><a href="https://camo.githubusercontent.com/cffe24902c703fd281cd84fb5680931be8f9bbeb4e01559140da3b71247e9c04/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f73746172732f584955322f557365725363726970742e7376673f7374796c653d666c61742d737175617265266c6162656c3d5374617226636f6c6f723d343238356464266c6f676f3d676974687562"><img src="https://camo.githubusercontent.com/cffe24902c703fd281cd84fb5680931be8f9bbeb4e01559140da3b71247e9c04/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f73746172732f584955322f557365725363726970742e7376673f7374796c653d666c61742d737175617265266c6162656c3d5374617226636f6c6f723d343238356464266c6f676f3d676974687562" alt="img"></a></em><br><em><a href="https://github.com/XIU2/CloudflareSpeedTest"><strong>CloudflareSpeedTest</strong> - 🌩 测试 Cloudflare CDN 延迟和速度，获取最快 IP (IPv4+IPv6)！</a> <a href="https://camo.githubusercontent.com/82ffde7af49fc911b35144ccfa8fb7a7c32b213b0a37a94c5e151467779b0581/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f73746172732f584955322f436c6f7564666c6172655370656564546573742e7376673f7374796c653d666c61742d737175617265266c6162656c3d5374617226636f6c6f723d343238356464266c6f676f3d676974687562"><img src="https://camo.githubusercontent.com/82ffde7af49fc911b35144ccfa8fb7a7c32b213b0a37a94c5e151467779b0581/68747470733a2f2f696d672e736869656c64732e696f2f6769746875622f73746172732f584955322f436c6f7564666c6172655370656564546573742e7376673f7374796c653d666c61742d737175617265266c6162656c3d5374617226636f6c6f723d343238356464266c6f676f3d676974687562" alt="img"></a></em></p>
+</blockquote>
+<hr>
+<h3 id="Tracker是什么"><a href="#Tracker是什么" class="headerlink" title="Tracker是什么?"></a>Tracker是什么?</h3><ul>
+<li>*因为 <strong>BT 下载文件</strong>全都是<strong>其他用户上传给你的</strong>。*</li>
+<li>*所以 <strong>BT 下载速度</strong>就等于<strong>其他用户的上传速度</strong>。*</li>
+</ul>
+<p>链接到的做种上传用户越多，你的下载速度就越快，而用户通过 <strong>Peer、DHT、Tracker</strong> 获得。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Peer</strong></td>
+<td>在获得一个有效用户后才会起作用，该用户会把它知道的其他用户信息告诉你。</td>
+</tr>
+<tr>
+<td><strong>DHT</strong></td>
+<td>Peer 加强版，分布式储存用户信息，获得用户的效率更高，但需要下载热门资源来养。</td>
+</tr>
+<tr>
+<td><strong>Tracker</strong></td>
+<td>记录所有正在上传/下载同一资源的用户信息并提供给你，帮助你与其他用户建立连接。</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><em><strong>以上三者的优缺点是互补的，不存在谁替代谁，只有互相搭配 一起使用 效果才最好~</strong></em></p>
+</blockquote>
+<p><em>下图是使用我整理的 Tracker 列表下载BT的速度（all.txt）。</em></p>
+<p><a href="https://camo.githubusercontent.com/5aefb28ce9ddfc0274f250690e34e871b29b497ca8ab32b3272a2b914faa63f5/68747470733a2f2f63646e2e737461746963616c792e636f6d2f67682f584955322f547261636b6572734c697374436f6c6c656374696f6e2f6d61737465722f696d672f7a682d30312e706e67"><img src="https://camo.githubusercontent.com/5aefb28ce9ddfc0274f250690e34e871b29b497ca8ab32b3272a2b914faa63f5/68747470733a2f2f63646e2e737461746963616c792e636f6d2f67682f584955322f547261636b6572734c697374436f6c6c656374696f6e2f6d61737465722f696d672f7a682d30312e706e67" alt="BitComet"></a> <a href="https://camo.githubusercontent.com/02044825c9087bd7f585b4f9e97867d42d05183ad21fce887dd43d0fe83504d1/68747470733a2f2f63646e2e737461746963616c792e636f6d2f67682f584955322f547261636b6572734c697374436f6c6c656374696f6e2f6d61737465722f696d672f7a682d30322e706e67"><img src="https://camo.githubusercontent.com/02044825c9087bd7f585b4f9e97867d42d05183ad21fce887dd43d0fe83504d1/68747470733a2f2f63646e2e737461746963616c792e636f6d2f67682f584955322f547261636b6572734c697374436f6c6c656374696f6e2f6d61737465722f696d672f7a682d30322e706e67" alt="qBittorrentEE"></a></p>
+<p><em>可通过观察 <strong><a href="https://releases.ubuntu.com/20.04/ubuntu-20.04.4-desktop-amd64.iso.torrent">ubuntu.torrent</a></strong> 下载速度来<strong>判断 BT 配置、网络</strong>是否有问题，该热门资源不缺做种用户，如果<strong>下载速度较慢</strong>则可能有问题。</em></p>
+<hr>
+<h3 id="更新时间-2022-05-24"><a href="#更新时间-2022-05-24" class="headerlink" title="更新时间: 2022-05-24"></a>更新时间: 2022-05-24</h3><ul>
+<li><strong>精选列表：</strong>(75 个)<br><em><strong><a href="https://cdn.staticaly.com/gh/XIU2/TrackersListCollection/master/best.txt">https://trackerslist…/best.txt</a></strong></em></li>
+<li><strong>完整列表：</strong>(161 个)<br><em><strong><a href="https://cdn.staticaly.com/gh/XIU2/TrackersListCollection/master/all.txt">https://trackerslist…/all.txt</a></strong></em></li>
+<li><strong>HTTP(S)列表：</strong>(67 个)<br><em><strong><a href="https://cdn.staticaly.com/gh/XIU2/TrackersListCollection/master/http.txt">https://trackerslist…/http.txt</a></strong></em></li>
+</ul>
+<blockquote>
+<p>上面链接已改为 <strong>CDN 分流</strong>地址，来解决大家反应的速度问题（国内<strong>电信</strong>用户建议使用其他备用地址）。</p>
+</blockquote>
+<details style="box-sizing: border-box; display: block; margin-top: 0px; margin-bottom: 16px; color: rgb(36, 41, 47); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><summary style="box-sizing: border-box; display: list-item; cursor: pointer;"><strong style="box-sizing: border-box; font-weight: 600;"><code style="box-sizing: border-box; font-family: ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;, monospace; font-size: 13.6px; padding: 0.2em 0.4em; margin: 0px; background-color: var(--color-neutral-muted); border-radius: 6px;">[点击展开] - 查看其他 CDN 分流地址</code></strong></summary></details>
+
+<hr>
+<h3 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用?"></a>如何使用?</h3><h4 id="Aria2"><a href="#Aria2" class="headerlink" title="Aria2:"></a>Aria2:</h4><details style="box-sizing: border-box; display: block; margin-top: 0px; margin-bottom: 16px; color: rgb(36, 41, 47); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif, &quot;Apple Color Emoji&quot;, &quot;Segoe UI Emoji&quot;; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><summary style="box-sizing: border-box; display: list-item; cursor: pointer;"><strong style="box-sizing: border-box; font-weight: 600;"><code style="box-sizing: border-box; font-family: ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;, monospace; font-size: 13.6px; padding: 0.2em 0.4em; margin: 0px; background-color: var(--color-neutral-muted); border-radius: 6px;">[点击展开] - 查看 Aria2 格式的 Tracker 列表</code></strong></summary></details>
+
+<p>复制 Aria2 格式 Tracker 文件中内容后，粘贴到配置文件 <code>aria2.conf</code> 中 <code>bt-tracker=</code> 的后面，示例如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">bt-tracker=http://aaa.aa:80/announce,udp://bbb.bb:80/announce</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意：</strong> 粘贴前请先删除旧 Tracker 内容，避免格式错误！</p>
+</blockquote>
+<hr>
+<h4 id="BitComet-比特彗星"><a href="#BitComet-比特彗星" class="headerlink" title="BitComet (比特彗星):"></a>BitComet (比特彗星):</h4><blockquote>
+<p><em><strong>官方网站：<a href="http://www.bitcomet.com/">http://www.bitcomet.com</a></strong></em><br><em><strong>便携版：<a href="https://pan.lanzouq.com/b073c7g4f">https://pan.lanzouq.com/b073c7g4f</a> (已配置 Tracker 并屏蔽迅雷)</strong></em></p>
+</blockquote>
+<ul>
+<li><strong>工具 - 选项 - 任务设置 - BT下载 - Tracker</strong><br><strong>勾选下图红框内的选项</strong> 并填写 Tracker URL 后点击 <code>立即更新</code> 上面就会显示获取的 Tracker 了。</li>
+</ul>
+<blockquote>
+<p>比特彗星的 <strong>黄灯 绿灯</strong> 对下载速度影响较小，主要影响上传速度，绿灯需要 <strong>公网IP + 端口映射(UPnP)</strong> 。</p>
+</blockquote>
+<p><a href="https://camo.githubusercontent.com/3bf09b68d9971e542503c73b7880d92e52ab03efb4ffd12a8e524a76e0413d7f/68747470733a2f2f63646e2e737461746963616c792e636f6d2f67682f584955322f547261636b6572734c697374436f6c6c656374696f6e2f6d61737465722f696d672f7a682d31302e706e67"><img src="https://camo.githubusercontent.com/3bf09b68d9971e542503c73b7880d92e52ab03efb4ffd12a8e524a76e0413d7f/68747470733a2f2f63646e2e737461746963616c792e636f6d2f67682f584955322f547261636b6572734c697374436f6c6c656374696f6e2f6d61737465722f696d672f7a682d31302e706e67" alt="img"></a></p>
+<hr>
+<h4 id="qBittorrent-Enhanced-Edition-增强版"><a href="#qBittorrent-Enhanced-Edition-增强版" class="headerlink" title="qBittorrent Enhanced Edition (增强版):"></a>qBittorrent Enhanced Edition (增强版):</h4><blockquote>
+<p><em><strong>Github：<a href="https://github.com/c0re100/qBittorrent-Enhanced-Edition">https://github.com/c0re100/qBittorrent-Enhanced-Edition</a></strong></em><br><em><strong>便携版：<a href="https://pan.lanzouq.com/b073dnr7g">https://pan.lanzouq.com/b073dnr7g</a> (已配置 Tracker 并屏蔽迅雷)</strong></em></p>
+</blockquote>
+<blockquote>
+<p>在 qBittorrent 的基础上增加了很多功能，例如：<strong>屏蔽迅雷、订阅 Tracker URL</strong> ，可以很方便的配合本项目使用。</p>
+</blockquote>
+<ul>
+<li><strong>选项[齿轮图标] - BitTorrent</strong><br><strong>勾选下图红框内的选项</strong> 并填写 Tracker URL 后点击 <code>Apply</code> 保存，<strong>然后重启 qBittorrentEE 。</strong></li>
+</ul>
+<p><a href="https://camo.githubusercontent.com/874537c389ce6fc92d1bee83d98126c415701cb7719b1201999ad1c2d9bfe041/68747470733a2f2f63646e2e737461746963616c792e636f6d2f67682f584955322f547261636b6572734c697374436f6c6c656374696f6e2f6d61737465722f696d672f7a682d31312e706e67"><img src="https://camo.githubusercontent.com/874537c389ce6fc92d1bee83d98126c415701cb7719b1201999ad1c2d9bfe041/68747470733a2f2f63646e2e737461746963616c792e636f6d2f67682f584955322f547261636b6572734c697374436f6c6c656374696f6e2f6d61737465722f696d672f7a682d31312e706e67" alt="img"></a></p>
+<hr>
+<h4 id="qBittorrent"><a href="#qBittorrent" class="headerlink" title="qBittorrent:"></a>qBittorrent:</h4><blockquote>
+<p><em><strong>官方网站：<a href="https://www.qbittorrent.org/">https://www.qbittorrent.org</a></strong></em><br><em><strong>便携版：<a href="https://pan.lanzouq.com/b073jjwta">https://pan.lanzouq.com/b073jjwta</a></strong></em></p>
+</blockquote>
+<ul>
+<li><strong>选项[齿轮图标] - BitTorrent</strong><br><strong>勾选下图红框内的选项</strong> 并复制所有 Tracker 后粘贴到下方输入框中，然后点击 <code>Apply</code> 保存。</li>
+</ul>
+<p><a href="https://camo.githubusercontent.com/36fa124c56837332ee24412cdc496575d7ebb444fe9f7c828d928272d8311d09/68747470733a2f2f63646e2e737461746963616c792e636f6d2f67682f584955322f547261636b6572734c697374436f6c6c656374696f6e2f6d61737465722f696d672f7a682d31322e706e67"><img src="https://camo.githubusercontent.com/36fa124c56837332ee24412cdc496575d7ebb444fe9f7c828d928272d8311d09/68747470733a2f2f63646e2e737461746963616c792e636f6d2f67682f584955322f547261636b6572734c697374436f6c6c656374696f6e2f6d61737465722f696d672f7a682d31322e706e67" alt="img"></a></p>
+<hr>
+<h4 id="Motrix"><a href="#Motrix" class="headerlink" title="Motrix:"></a>Motrix:</h4><blockquote>
+<p><em><strong>官方网站：<a href="https://motrix.app/">https://motrix.app</a></strong></em></p>
+</blockquote>
+<ul>
+<li><strong>选项(左下角) - 进阶设置 - Tracker 服务器 - ﹀</strong><br><strong>勾选任意一个选项（如 all.txt）</strong> ，然后点击 <code>保存并应用</code> 保存。</li>
+</ul>
+<p><a href="https://camo.githubusercontent.com/962bb9a63381e2525b7172d91faeb44d2c413073aa17ed52b1bb1eae2fd84301/68747470733a2f2f63646e2e737461746963616c792e636f6d2f67682f584955322f547261636b6572734c697374436f6c6c656374696f6e2f6d61737465722f696d672f7a682d31332e706e67"><img src="https://camo.githubusercontent.com/962bb9a63381e2525b7172d91faeb44d2c413073aa17ed52b1bb1eae2fd84301/68747470733a2f2f63646e2e737461746963616c792e636f6d2f67682f584955322f547261636b6572734c697374436f6c6c656374696f6e2f6d61737465722f696d672f7a682d31332e706e67" alt="img"></a></p>
+<hr>
+<h4 id="File-Centipede"><a href="#File-Centipede" class="headerlink" title="File Centipede:"></a>File Centipede:</h4><blockquote>
+<p><em><strong>官方网站：<a href="http://www.filecxx.com/">http://www.filecxx.com</a></strong></em></p>
+</blockquote>
+<ul>
+<li><strong>设置 - BT 追踪器 - 订阅</strong><br>右键空白处在右键菜单中选择 <code>添加</code>，填写 Tracker URL 后点击 <code>保存</code> 。</li>
+</ul>
+<p><a href="https://camo.githubusercontent.com/e967b08657f6c27b8466bc9b0a9d8a81274be216d5e6809ec56b461a92deff03/68747470733a2f2f63646e2e737461746963616c792e636f6d2f67682f584955322f547261636b6572734c697374436f6c6c656374696f6e2f6d61737465722f696d672f7a682d31342e706e67"><img src="https://camo.githubusercontent.com/e967b08657f6c27b8466bc9b0a9d8a81274be216d5e6809ec56b461a92deff03/68747470733a2f2f63646e2e737461746963616c792e636f6d2f67682f584955322f547261636b6572734c697374436f6c6c656374696f6e2f6d61737465722f696d672f7a682d31342e706e67" alt="img"></a></p>
+<hr>
+<h3 id="为什么有些-Tracker-不回应"><a href="#为什么有些-Tracker-不回应" class="headerlink" title="为什么有些 Tracker 不回应?"></a>为什么有些 Tracker 不回应?</h3><p>这是很常见的情况，很多因素都会导致这种情况的出现。</p>
+<ul>
+<li><strong>首先</strong>，目前热门 Tracker 基本都是国外服务器（毕竟国内要备案），因此可能会出现链接问题 …<br><em>（一般 HTTPS 的链接成功率更高，HTTP、UDP 这种明文的容易被运营商干扰、屏蔽 …</em></li>
+<li><strong>其次</strong>，一些 Tracker 域名/ IP 可能被你当地运营商屏蔽了（特别是移动这个问题比较严重 …</li>
+<li><strong>相应</strong>，一些 Tracker 服务器也可能屏蔽了 国内用户 / 你的 BT 软件（这就要问问迅雷了~</li>
+<li><strong>最后</strong>，一些 Tracker 服务器没有你当前正在下载资源的相关信息。</li>
+</ul>
+<blockquote>
+<p>不过也不用担心影响 BT 软件，毕竟 BT 软件重试几次就会忽略了（多线程）~</p>
+</blockquote>
+<hr>
+<h3 id="为什么还是下载速度慢"><a href="#为什么还是下载速度慢" class="headerlink" title="为什么还是下载速度慢?"></a>为什么还是下载速度慢?</h3><p>前面说了，BT 下载速度取决于<strong>其他做种用户的上传速度。</strong></p>
+<p>因此，想要下载速度快，就要<strong>找到更多用户</strong>，但前提是有用户，否则总不能<strong>凭空制造用户、凭空下载文件</strong>是吧。<br>注意 BT 只适合下载<strong>热门</strong>资源，对于冷门资源，再怎么折腾都没啥用（毕竟 Peer、DHT、Tracker 都只是起到<strong>辅助作用</strong>），因此没速度的话，还是建议去找找其他种子、网盘什么的碰碰运气，不要在一棵树上吊死~</p>
+<blockquote>
+<p>另外，不仅要关注<strong>用户数量</strong>，还要关注<strong>用户质量</strong>，因为国内绝大部分家庭宽带都没有公网 IP，因此上传速度比较捉急，另一方面也是运营商上传不对等，还老是干扰 BT、限制 UDP 协议，这也是国内BT环境这么差的主要原因之一。</p>
+</blockquote>
+<p>迅雷会员加速的本质就是<strong>解除连接用户限制</strong>，让你可以连接到更多的用户，来 <code>有效</code> 提高下载速度。</p>
+<blockquote>
+<p>迅雷之所以叫<strong>吸血雷</strong>，是因为 <strong>迅雷一边吸取其他 BT 软件用户上传速度，一边却屏蔽其他 BT 软件，只把上传速度提供给其他迅雷用户</strong> ，所以对于其他客户端来说，迅雷只进不出，俗称吸血雷，长此以往形成<strong>恶性循环</strong>，用迅雷的人越来越多，其他 BT 软件下载速度越来越慢。</p>
+</blockquote>
+<p><a href="https://camo.githubusercontent.com/f9de8e8419550881bda660c715ab6636d98e7a9969ef74bd7e68c394f789c40b/68747470733a2f2f63646e2e737461746963616c792e636f6d2f67682f584955322f547261636b6572734c697374436f6c6c656374696f6e2f6d61737465722f696d672f7a682d30352e706e67"><img src="https://camo.githubusercontent.com/f9de8e8419550881bda660c715ab6636d98e7a9969ef74bd7e68c394f789c40b/68747470733a2f2f63646e2e737461746963616c792e636f6d2f67682f584955322f547261636b6572734c697374436f6c6c656374696f6e2f6d61737465722f696d672f7a682d30352e706e67" alt="img"></a></p>
+<blockquote>
+<p>呐，刚才我取消屏蔽迅雷后做种时截的图，迅雷用户一直吸我提供的上传，而下载进度永远为 0.0%</p>
+</blockquote>
+<p><em><strong>更详细、完整的请看这篇文章：<a href="https://zhuanlan.zhihu.com/p/87193566">https://zhuanlan.zhihu.com/p/87193566</a></strong></em></p>
+<hr>
+<p>说实话，这个项目起初只是为了解决我个人的小需求<strong>自给自足自用</strong>的，没啥技术含量，结果没想到几年过去了，用的人越来越多了，⭐Star 竟然都突破了 <strong>10k</strong>！成为了我所有开源项目中数据最高的项目，属实把我惊到了。。。<br>总之，能帮到这么多和我有相同需求的人，感觉挺不错~</p>
+<hr>
+<h3 id="项目来源"><a href="#项目来源" class="headerlink" title="项目来源"></a>项目来源</h3><p>该项目受到以下公共 Tracker 项目的帮助，感谢~</p>
+<ul>
+<li><a href="https://github.com/ngosang/trackerslist">https://github.com/ngosang/trackerslist</a></li>
+<li><a href="https://newtrackon.com/list">https://newtrackon.com/list</a></li>
+<li><a href="http://github.itzmx.com/1265578519/OpenTracker/master/tracker.txt">http://github.itzmx.com/1265578519/OpenTracker/master/tracker.txt</a></li>
+<li><a href="https://tinytorrent.net/best-torrent-tracker-list-updated/">https://tinytorrent.net/best-torrent-tracker-list-updated</a></li>
+<li><a href="http://www.torrenttrackerlist.com/torrent-tracker-list">http://www.torrenttrackerlist.com/torrent-tracker-list</a></li>
+<li><a href="https://github.com/DeSireFire/animeTrackerList">https://github.com/DeSireFire/animeTrackerList</a></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>tracker</tag>
+        <tag>磁力</tag>
+      </tags>
+  </entry>
 </search>

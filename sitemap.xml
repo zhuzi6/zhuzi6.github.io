@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.hacg.cf/posts/48040/</loc>
+    
+    <lastmod>2022-09-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.hacg.cf/posts/54280/</loc>
+    
+    <lastmod>2022-09-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://blog.hacg.cf/posts/44924/</loc>
     
     <lastmod>2022-09-19</lastmod>
@@ -782,6 +800,34 @@
   
   <url>
     <loc>http://blog.hacg.cf/tags/%E7%A6%BB%E7%BA%BF%E4%B8%8B%E8%BD%BD/</loc>
+    <lastmod>2022-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.hacg.cf/tags/%E4%B8%8B%E8%BD%BD/</loc>
+    <lastmod>2022-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.hacg.cf/tags/Telegram/</loc>
+    <lastmod>2022-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.hacg.cf/tags/tracker/</loc>
+    <lastmod>2022-09-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.hacg.cf/tags/%E7%A3%81%E5%8A%9B/</loc>
     <lastmod>2022-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
