@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.hacg.cf/posts/40/</loc>
+    
+    <lastmod>2022-09-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://blog.hacg.cf/posts/56727/</loc>
     
     <lastmod>2022-09-20</lastmod>
@@ -354,15 +363,6 @@
   
   <url>
     <loc>http://blog.hacg.cf/posts/27776/</loc>
-    
-    <lastmod>2022-09-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.hacg.cf/posts/40/</loc>
     
     <lastmod>2022-09-20</lastmod>
     
