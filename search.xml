@@ -4649,7 +4649,7 @@
   <entry>
     <title>linux运维监控工具-WGCLOUD</title>
     <url>/posts/56508/</url>
-    <content><![CDATA[<p><a href="https://gitee.com/link?target=http://www.wgstart.com"><img src="https://gitee.com/wanghouhou/wgcloud/raw/master/demo/logo.png" alt="img"></a></p>
+    <content><![CDATA[<p><a href="https://gitee.com/link?target=http://www.wgstart.com"><img src="https://link.jscdn.cn/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbGVTd3dnOVNwenhneHpXM1VHMEhsa0RjcE9fP2U9dXRWbkFl.png" alt="img"></a></p>
 <h2 id="WGCLOUD介绍"><a href="#WGCLOUD介绍" class="headerlink" title="WGCLOUD介绍"></a>WGCLOUD介绍</h2><p>WGCLOUD设计思想为新一代极简运维监控系统，提倡快速部署，降低运维学习难度，全自动化运行，无模板和脚本。</p>
 <p><strong>当前仓库为开源版本v2.3.7最新，二次开发请拉取master分支即可</strong>。</p>
 <p>WGCLOUD基于微服务springboot架构开发，是轻量高性能的分布式监控系统，核心采集指标包括：<strong>cpu使用率，cpu温度，内存使用率，磁盘容量，磁盘IO，硬盘SMART健康状态，系统负载，连接数量，网卡流量，硬件系统信息等。支持监测服务器上的进程应用、文件防篡改、端口、日志、DOCKER容器、数据库、数据表等资源。支持监测服务接口API、数通设备（如交换机、路由器、打印机）等。自动生成网络拓扑图，大屏可视化，web SSH（堡垒机），统计分析图表，指令下发批量执行，告警信息推送（如邮件、钉钉、微信、短信等）</strong>。<a href="https://gitee.com/wanghouhou/wgcloud/blob/master/README_en.md">English Readme</a></p>
@@ -4668,17 +4668,17 @@
 <p>2.使用Eclipse的话，导入maven工程wgcloud-server和wgcloud-agent即可，JDK使用1.8</p>
 <p>3.运行所需sql脚本（本项目使用mysql数据库），在sql文件夹下，在mysql数据库里创建数据库wgcloud，导入wgcloud.sql即可</p>
 <p>4.bin目录下的脚本文件，为server和agent启动/停止脚本（linux和windows），和打包好的wgcloud-server-release.jar放到同一个目录下即可。</p>
-<h2 id="功能截图"><a href="#功能截图" class="headerlink" title="功能截图"></a><strong>功能截图</strong></h2><p><img src="https://gitee.com/wanghouhou/wgcloud/raw/master/demo/demo2.jpg" alt="WGCLOUD监控主面板"></p>
-<p><img src="https://gitee.com/wanghouhou/wgcloud/raw/master/demo/demo3.jpg" alt="WGCLOUD监控主机列表"></p>
-<p><img src="https://gitee.com/wanghouhou/wgcloud/raw/master/demo/demo9.jpg" alt="WGCLOUD监控主机磁盘信息"></p>
-<p><img src="https://gitee.com/wanghouhou/wgcloud/raw/master/demo/report.jpg" alt="WGCLOUD监控主机告警报表"></p>
+<h2 id="功能截图"><a href="#功能截图" class="headerlink" title="功能截图"></a><strong>功能截图</strong></h2><p><img src="https://link.jscdn.cn/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbGVTd3dnOVNwenhneDc2OWZGanBnM3AtUDNLP2U9Qzg0RXBM.jpg" alt="WGCLOUD监控主面板"></p>
+<p><img src="https://link.jscdn.cn/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbGVTd3dnOVNwenhneC1lNDd1STNYVFFKX1FVP2U9TndHQVhH.jpg" alt="WGCLOUD监控主机列表"></p>
+<p><img src="https://link.jscdn.cn/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbGVTd3dnOVNwenhneUJkay1lclVFTzRnbFl2P2U9cnN2eGdP.jpg" alt="WGCLOUD监控主机磁盘信息"></p>
+<p><img src="https://link.jscdn.cn/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbGVTd3dnOVNwenhneUZ6LXBqVkh6bVFIRzIxP2U9TlhWR1pV.jpg" alt="WGCLOUD监控主机告警报表"></p>
 <p><img src="https://gitee.com/wanghouhou/wgcloud/raw/master/demo/dp.jpg" alt="WGCLOUD监控主机大屏"></p>
-<p><img src="https://gitee.com/wanghouhou/wgcloud/raw/master/demo/dapingNew.jpg" alt="WGCLOUD监控主机大屏新版本"></p>
-<p><img src="https://gitee.com/wanghouhou/wgcloud/raw/master/demo/demo4.jpg" alt="WGCLOUD监控主机状态趋势图"></p>
-<p><img src="https://gitee.com/wanghouhou/wgcloud/raw/master/demo/tpdemo.jpg" alt="WGCLOUD网络拓扑图"></p>
-<p><img src="https://gitee.com/wanghouhou/wgcloud/raw/master/demo/ssh.jpg" alt="WGCLOUD主机web ssh客户端图"></p>
-<p><img src="https://gitee.com/wanghouhou/wgcloud/raw/master/demo/huaxiang.jpg" alt="WGCLOUD主机画像图"></p>
-<h2 id="通信图示例（http协议）"><a href="#通信图示例（http协议）" class="headerlink" title="通信图示例（http协议）"></a>通信图示例（http协议）</h2><p><img src="https://gitee.com/wanghouhou/wgcloud/raw/master/demo/tongxin.jpg" alt="WGCLOUD通信图示例"></p>
+<p><img src="https://link.jscdn.cn/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbGVTd3dnOVNwenhneU00NEdDemQ0S0VCRUM5P2U9OWdWN2dM.jpg" alt="WGCLOUD监控主机大屏新版本"></p>
+<p><img src="https://link.jscdn.cn/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbGVTd3dnOVNwenhneVRnNzNCbkwtdDJhb1BQP2U9UkZuS1Zj.jpg" alt="WGCLOUD监控主机状态趋势图"></p>
+<p><img src="https://link.jscdn.cn/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbGVTd3dnOVNwenhneVUyOGhwUk5ueGFIYmZVP2U9ZWtRWUtX.jpg" alt="WGCLOUD网络拓扑图"></p>
+<p><img src="https://link.jscdn.cn/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbGVTd3dnOVNwenhneVotZENPWG8wSG9jTE9tP2U9dncxYndP.jpg" alt="WGCLOUD主机web ssh客户端图"></p>
+<p><img src="https://link.jscdn.cn/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbGVTd3dnOVNwenhneWNKSl94c0hTNVVtOTZkP2U9ZTZrR0s0.jpg" alt="WGCLOUD主机画像图"></p>
+<h2 id="通信图示例（http协议）"><a href="#通信图示例（http协议）" class="headerlink" title="通信图示例（http协议）"></a>通信图示例（http协议）</h2><p><img src="https://link.jscdn.cn/1drv/aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbGVTd3dnOVNwenhneWlZU2pJTFdmRDFIZGlSP2U9MTB5c2FV.png" alt="WGCLOUD通信图示例"></p>
 <h2 id="运行环境"><a href="#运行环境" class="headerlink" title="运行环境"></a>运行环境</h2><p>1.JDK版本：JDK1.8、JDK11</p>
 <p>2.数据库：MySql5.5及以上、MariaDB、PostgreSQL、Oracle</p>
 <p>3.支持系统平台</p>
